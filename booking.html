@@ -104,6 +104,16 @@ footer{background:var(--rose);color:white;padding:52px 5% 32px}.ft{display:flex;
 .modal-sub{font-size:13px;color:var(--warm-gray);line-height:1.85;margin-bottom:24px}
 .modal-close{padding:10px 32px;background:var(--rose);color:white;border:none;border-radius:50px;font-family:var(--fn-sans);font-size:14px;cursor:pointer;transition:background .3s}
 .modal-close:hover{background:#8f3f44}
+.saved-box{background:white;border:1px solid var(--rose-light);border-radius:14px;padding:18px 20px;margin-top:16px}
+.saved-hdr{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.saved-title{font-family:var(--fn-kr);font-size:15px;font-weight:500;color:var(--dark)}
+.saved-actions{display:flex;gap:7px;flex-wrap:wrap}
+.saved-actions button{padding:6px 10px;border:1px solid var(--rose-light);border-radius:999px;background:var(--cream);color:var(--rose);font-family:var(--fn-sans);font-size:11px;cursor:pointer}
+.saved-list{display:flex;flex-direction:column;gap:8px;max-height:220px;overflow:auto}
+.saved-empty{font-size:12px;color:var(--warm-gray);line-height:1.7}
+.saved-item{padding:10px 11px;border:1px solid var(--rose-light);border-radius:10px;background:var(--cream)}
+.saved-item b{display:block;font-size:12.5px;color:var(--dark);margin-bottom:3px}
+.saved-item span{display:block;font-size:11px;color:var(--warm-gray);line-height:1.55}
 
 @media(max-width:900px){.book-wrap{grid-template-columns:1fr}}
 @media(max-width:640px){.form-row{grid-template-columns:1fr}.action-btns{grid-template-columns:1fr}}
@@ -353,6 +363,18 @@ header.site-header{position:fixed;top:0;left:0;right:0;z-index:200;height:82px;p
           · 맞춤 주문 및 대량 주문 상담 가능합니다
         </div>
       </div>
+      <div class="saved-box">
+        <div class="saved-hdr">
+          <div class="saved-title">접수 내역</div>
+          <div class="saved-actions">
+            <button type="button" id="btnExportRecords">CSV 저장</button>
+            <button type="button" id="btnClearRecords">전체 삭제</button>
+          </div>
+        </div>
+        <div class="saved-list" id="savedList">
+          <p class="saved-empty">아직 저장된 예약·구매 내역이 없습니다.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -415,6 +437,78 @@ const booked=new Set();
 const y=today.getFullYear(), m=today.getMonth();
 [4,8,11,15,18,22,25].forEach(d=>booked.add(`${y}-${m}-${d}`));
 [3,6,10,13,17,20,24,27].forEach(d=>booked.add(`${y}-${m+1}-${d}`));
+const seedBooked=new Set(booked);
+const STORAGE_KEY='momentRequests';
+
+function getSavedRecords(){
+  try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');}
+  catch(e){return [];}
+}
+
+function setSavedRecords(records){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(records));
+}
+
+function saveRequest(kind, extra={}){
+  const record={
+    id:'MOMENT-'+new Date().toISOString().replace(/[-:.TZ]/g,'').slice(0,14),
+    kind,
+    service:selSvc,
+    price:selPr,
+    type:selType,
+    name:document.getElementById('iName').value.trim(),
+    phone:document.getElementById('iPhone').value.trim(),
+    email:document.getElementById('iEmail').value.trim(),
+    note:document.getElementById('iNote').value.trim(),
+    createdAt:new Date().toLocaleString('ko-KR'),
+    ...extra
+  };
+  const records=getSavedRecords();
+  records.unshift(record);
+  setSavedRecords(records);
+  if(record.dateKey) booked.add(record.dateKey);
+  renderSavedRecords();
+  return record;
+}
+
+function renderSavedRecords(){
+  const list=document.getElementById('savedList');
+  const records=getSavedRecords();
+  if(!records.length){
+    list.innerHTML='<p class="saved-empty">아직 저장된 예약·구매 내역이 없습니다.</p>';
+    return;
+  }
+  list.innerHTML=records.slice(0,8).map(r=>`
+    <div class="saved-item">
+      <b>${r.kind} · ${r.service}</b>
+      <span>${r.createdAt} / ${r.name} / ${r.phone}</span>
+      <span>${r.date?`${r.date} ${r.time||''}`:'단품 구매'} / ${r.price}</span>
+      ${r.note?`<span>요청: ${r.note}</span>`:''}
+      <span>접수번호: ${r.id}</span>
+    </div>
+  `).join('');
+}
+
+function loadSavedBookedDates(){
+  getSavedRecords().forEach(r=>{if(r.kind==='예약'&&r.dateKey)booked.add(r.dateKey);});
+}
+
+function exportSavedRecords(){
+  const records=getSavedRecords();
+  if(!records.length){alert('저장된 내역이 없습니다.');return;}
+  const headers=['접수번호','구분','서비스','금액','이름','연락처','이메일','날짜','시간','요청사항','접수일시'];
+  const rows=records.map(r=>[r.id,r.kind,r.service,r.price,r.name,r.phone,r.email||'',r.date||'',r.time||'',r.note||'',r.createdAt]);
+  const csv=[headers,...rows].map(row=>row.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='moment-접수내역.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+loadSavedBookedDates();
+renderSavedRecords();
 
 function renderCal(){
   const mn=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
@@ -489,8 +583,10 @@ document.getElementById('btnBuy').addEventListener('click',()=>{
   const phone=document.getElementById('iPhone').value.trim();
   if(!name||!phone){alert('이름과 연락처를 입력해주세요.');return;}
   const note=document.getElementById('iNote').value.trim();
+  const record=saveRequest('구매');
   showModal('🛍️','구매 신청이 완료되었습니다!',
     `<strong>${name}</strong>님의 주문을 받았습니다.<br><br>` +
+    `접수번호: ${record.id}<br>` +
     `📦 상품: ${selSvc}<br>` +
     `💰 금액: ${selPr}<br>` +
     `📞 연락처: ${phone}<br>` +
@@ -507,9 +603,11 @@ document.getElementById('btnBook').addEventListener('click',()=>{
   const mn=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
   const ds=`${selDate.y}년 ${mn[selDate.m]} ${selDate.d}일`;
   const ts=document.getElementById('iTime').value;
-  booked.add(`${selDate.y}-${selDate.m}-${selDate.d}`);
+  const dateKey=`${selDate.y}-${selDate.m}-${selDate.d}`;
+  const record=saveRequest('예약',{date:ds,time:ts,dateKey});
   showModal('📅','예약이 완료되었습니다!',
     `<strong>${name}</strong>님의 예약을 확정했습니다.<br><br>` +
+    `접수번호: ${record.id}<br>` +
     `🎉 서비스: ${selSvc}<br>` +
     `📅 날짜: ${ds}<br>` +
     `🕐 시간: ${ts}<br>` +
@@ -538,6 +636,15 @@ function resetForm(){
 
 document.getElementById('modalClose').addEventListener('click',()=>document.getElementById('modalOv').classList.remove('open'));
 document.getElementById('modalOv').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+document.getElementById('btnExportRecords').addEventListener('click',exportSavedRecords);
+document.getElementById('btnClearRecords').addEventListener('click',()=>{
+  if(!confirm('저장된 접수 내역을 모두 삭제할까요?'))return;
+  setSavedRecords([]);
+  booked.clear();
+  seedBooked.forEach(key=>booked.add(key));
+  renderSavedRecords();
+  renderCal();
+});
 
 // URL 파라미터로 카테고리 자동 선택
 const params=new URLSearchParams(location.search);

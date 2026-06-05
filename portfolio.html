@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>학생 활동 포트폴리오 - MOMENT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Noto+Serif+KR:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fffaf8;--rose:#b5545a;--rose-soft:#e8a4a4;--rose-light:#f7e6e6;--gold:#c9a96e;--sage:#8ca77f;--ink:#2c1f1f;--muted:#7d716d;--fn-en:'Playfair Display',serif;--fn-kr:'Noto Serif KR',serif;--fn-sans:'Noto Sans KR',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--fn-sans);background:var(--cream);color:var(--ink);overflow-x:hidden}a{text-decoration:none;color:inherit}
+.site-header{position:fixed;top:0;left:0;right:0;z-index:200;height:82px;padding:0 3.1%;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.96);border-bottom:1px solid rgba(44,31,31,.08);box-shadow:0 10px 28px rgba(44,31,31,.04);backdrop-filter:blur(8px)}
+.brand{display:flex;flex-direction:column;align-items:flex-start;line-height:1;color:var(--ink)}.brand-main{font-family:var(--fn-en);font-size:clamp(28px,2.5vw,40px);font-weight:700;letter-spacing:.08em}.brand-sub{margin-top:8px;padding-left:.45em;font-family:var(--fn-en);font-size:12px;letter-spacing:.36em;text-transform:uppercase}
+nav{display:flex;align-items:center;gap:clamp(26px,3vw,52px)}nav a{font-size:16px;color:var(--ink);white-space:nowrap;transition:color .2s ease}nav a:hover{color:var(--rose)}.nav-cta{padding:13px 28px;color:#fff!important;background:#bf4f5e;border-radius:999px;box-shadow:0 8px 18px rgba(181,84,90,.18)}.nav-cta:hover{background:#9f3f4d;color:#fff!important}
+.menu-toggle{display:none;width:42px;height:42px;border:0;background:transparent}.menu-toggle span{display:block;width:24px;height:2px;margin:6px auto;background:var(--ink)}.mobile-nav{display:none;position:fixed;top:82px;left:0;right:0;z-index:199;padding:20px 6% 26px;background:rgba(255,255,255,.98);border-bottom:1px solid rgba(181,84,90,.14)}.mobile-nav.open{display:grid;gap:16px}
+.hero{position:relative;padding:156px 5% 92px;text-align:center;overflow:hidden;border-bottom:1px solid rgba(181,84,90,.1)}.hero::before{content:'';position:absolute;inset:0;background:url('concept.png') center 38%/cover no-repeat;opacity:.25;transform:scale(1.02)}.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 58% 78% at 50% 48%,rgba(255,250,248,.92) 0%,rgba(255,250,248,.76) 55%,rgba(255,250,248,.62) 100%)}.hero-inner{position:relative;z-index:1}.eyebrow{font-family:var(--fn-en);font-size:12px;letter-spacing:.28em;color:var(--rose);text-transform:uppercase;margin-bottom:18px}.hero h1{font-family:var(--fn-kr);font-size:clamp(34px,5vw,58px);line-height:1.25;font-weight:700;margin-bottom:18px}.hero h1 em{font-style:normal;color:var(--rose)}.hero p{max-width:640px;margin:0 auto;color:#5f5551;font-size:16px;line-height:1.9}
+.section{padding:82px 5%}.section-head{display:flex;align-items:end;justify-content:space-between;gap:28px;margin:0 auto 34px;max-width:1180px}.section-head h2{font-family:var(--fn-kr);font-size:30px;font-weight:600}.section-head p{max-width:460px;color:var(--muted);line-height:1.8;font-size:14px}
+.gallery{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.card{background:white;border:1px solid var(--rose-light);border-radius:8px;overflow:hidden;box-shadow:0 14px 34px rgba(181,84,90,.08)}.photo{position:relative;min-height:260px;padding:24px;display:flex;align-items:end;overflow:hidden;background-image:url('portfolio-student-activities.png');background-size:300% 200%;background-repeat:no-repeat}.photo::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(44,31,31,0) 35%,rgba(44,31,31,.58) 100%)}.photo::after{content:'';position:absolute;inset:0;border:1px solid rgba(255,255,255,.35);pointer-events:none}
+.p1{background-position:0 0}.p2{background-position:50% 0}.p3{background-position:100% 0}.p4{background-position:0 100%}.p5{background-position:50% 100%}.p6{background-position:100% 100%}
+.photo-title{position:relative;z-index:1;color:white;text-shadow:0 2px 8px rgba(44,31,31,.28)}.photo-title span{display:block;font-family:var(--fn-sans);font-size:12px;letter-spacing:0;text-transform:none;color:rgba(255,255,255,.88);opacity:1;margin-bottom:7px}.photo-title strong{font-family:var(--fn-kr);font-size:22px;font-weight:600}.body{padding:22px}.body p{color:var(--muted);font-size:14px;line-height:1.8}.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}.tags span{font-size:12px;color:var(--rose);background:var(--cream);border:1px solid var(--rose-light);border-radius:999px;padding:5px 10px}
+.process{background:white;border-top:1px solid var(--rose-light);border-bottom:1px solid var(--rose-light)}.steps{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rose-light);border:1px solid var(--rose-light)}.step{background:#fff;padding:30px}.step b{font-family:var(--fn-en);font-size:13px;color:var(--rose);letter-spacing:.16em}.step h3{font-family:var(--fn-kr);font-size:18px;font-weight:600;margin:12px 0 10px}.step p{font-size:13px;line-height:1.8;color:var(--muted)}
+footer{background:var(--rose);color:white;padding:52px 5% 32px}.ft{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:28px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.15);margin-bottom:24px}.ft-logo{font-family:var(--fn-en);font-size:18px;font-weight:700;letter-spacing:.12em;margin-bottom:9px}.ft-desc{font-size:13px;opacity:.65;line-height:1.8;max-width:280px}.ft-links{display:flex;gap:22px;flex-wrap:wrap}.ft-links a{font-size:13px;opacity:.75}.ft-btm{font-size:12px;opacity:.4}
+@media(max-width:900px){.gallery{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}.section-head{display:block}.section-head p{margin-top:12px}.site-header nav{display:none}.menu-toggle{display:block}}
+@media(max-width:560px){.site-header{height:72px}.brand-main{font-size:27px}.brand-sub{font-size:9px}.mobile-nav{top:72px}.hero{padding-top:124px}.gallery,.steps{grid-template-columns:1fr}.photo{min-height:220px}}
+</style>
+</head>
+<body>
+<header id="header" class="site-header"><a class="brand" href="index.html" aria-label="MOMENT Party Recipe"><span class="brand-main">MOMENT</span><span class="brand-sub">Party Recipe</span></a><nav aria-label="주 메뉴"><a href="events.html">Moment 이야기</a><a href="packages.html">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="booking.html" class="nav-cta">문의하기</a></nav><button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기"><span></span><span></span><span></span></button></header>
+<div class="mobile-nav" id="mobileNav"><a href="events.html">Moment 이야기</a><a href="packages.html">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="booking.html">문의하기</a></div>
+
+<main>
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Student Portfolio</p>
+      <h1>학생들이 만들어가는 <em>활동의 순간</em></h1>
+      <p>기획 회의부터 현장 세팅, 고객 응대, 촬영 기록, 발표와 피드백까지 학생들이 직접 참여한 활동 흐름을 중심으로 정리했습니다.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>활동 갤러리</h2>
+      <p>완성 결과물만 보여주기보다 학생들이 배우고 움직이고 협업하는 장면이 먼저 보이도록 구성했습니다.</p>
+    </div>
+    <div class="gallery">
+      <article class="card"><div class="photo p1" data-scene="기획"><div class="photo-title"><span>활동 장면 01</span><strong>이벤트 기획 회의</strong></div></div><div class="body"><p>행사 목적, 대상, 예산, 동선을 함께 정리하며 팀별 아이디어를 구체화합니다.</p><div class="tags"><span>팀 프로젝트</span><span>기획안 작성</span></div></div></article>
+      <article class="card"><div class="photo p2" data-scene="연출"><div class="photo-title"><span>활동 장면 02</span><strong>공간 연출 실습</strong></div></div><div class="body"><p>테이블 세팅, 소품 배치, 컬러 조합을 직접 맞추며 파티 스타일링 감각을 익힙니다.</p><div class="tags"><span>디자인 실습</span><span>소품 구성</span></div></div></article>
+      <article class="card"><div class="photo p3" data-scene="운영"><div class="photo-title"><span>활동 장면 03</span><strong>현장 운영 참여</strong></div></div><div class="body"><p>준비 시간표와 역할표를 기준으로 현장 흐름을 체크하고 돌발 상황에 대응합니다.</p><div class="tags"><span>운영 체크</span><span>역할 분담</span></div></div></article>
+      <article class="card"><div class="photo p4" data-scene="기록"><div class="photo-title"><span>활동 장면 04</span><strong>촬영과 기록</strong></div></div><div class="body"><p>활동 과정과 완성 장면을 기록해 포트폴리오 자료로 정리하고 공유합니다.</p><div class="tags"><span>사진 기록</span><span>콘텐츠 제작</span></div></div></article>
+      <article class="card"><div class="photo p5" data-scene="응대"><div class="photo-title"><span>활동 장면 05</span><strong>고객 응대 연습</strong></div></div><div class="body"><p>문의 응대, 예약 안내, 현장 커뮤니케이션을 실습하며 서비스 태도를 다듬습니다.</p><div class="tags"><span>응대 실습</span><span>예약 안내</span></div></div></article>
+      <article class="card"><div class="photo p6" data-scene="발표"><div class="photo-title"><span>활동 장면 06</span><strong>발표와 피드백</strong></div></div><div class="body"><p>팀별 결과물을 발표하고 개선점을 나누며 다음 프로젝트의 완성도를 높입니다.</p><div class="tags"><span>성과 발표</span><span>피드백</span></div></div></article>
+    </div>
+  </section>
+
+  <section class="section process">
+    <div class="section-head">
+      <h2>학생 활동 흐름</h2>
+      <p>포트폴리오의 기준을 결과 사진에서 과정 중심 기록으로 옮겼습니다.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><b>01</b><h3>주제 선정</h3><p>이벤트 유형과 고객 상황을 정하고 활동 목표를 세웁니다.</p></div>
+      <div class="step"><b>02</b><h3>기획 제작</h3><p>기획서, 콘셉트 보드, 예산표, 준비물 리스트를 만듭니다.</p></div>
+      <div class="step"><b>03</b><h3>현장 실행</h3><p>세팅, 촬영, 응대, 운영 역할을 나눠 실제처럼 진행합니다.</p></div>
+      <div class="step"><b>04</b><h3>기록 정리</h3><p>사진과 피드백을 모아 개인 또는 팀 포트폴리오로 완성합니다.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="ft"><div><div class="ft-logo">MOMENT</div><p class="ft-desc">학생들의 기획, 실행, 기록이 모여 특별한 순간을 완성합니다.</p></div><div class="ft-links"><a href="index.html">홈</a><a href="events.html">Moment 이야기</a><a href="packages.html">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a></div></div><p class="ft-btm">© 2025 Party Recipe. All rights reserved.</p></footer>
+<script>const menuToggle=document.getElementById('menuToggle');const mobileNav=document.getElementById('mobileNav');menuToggle?.addEventListener('click',()=>mobileNav.classList.toggle('open'));</script>
+</body>
+</html>
+

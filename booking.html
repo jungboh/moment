@@ -1,0 +1,558 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>서비스 예약 & 구매 — Party Recipe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Noto+Serif+KR:wght@300;400;500;700&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FFFAF8;--rose:#B5545A;--rose-soft:#E8A4A4;--rose-light:#F7E6E6;--rose-pale:#FBEEF0;--sage:#A8C5A0;--gold:#C9A96E;--gold-light:#F5EDD8;--sky-light:#EAF2FA;--lav-light:#F0EEF8;--warm-gray:#8C8480;--dark:#2C1F1F;--floral:#F4C0D1;--fn-en:'Playfair Display',serif;--fn-kr:'Noto Serif KR',serif;--fn-sans:'Noto Sans KR',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--fn-sans);background:var(--cream);color:var(--dark);overflow-x:hidden}a{text-decoration:none;color:inherit}img{display:block;width:100%;height:100%;object-fit:cover}
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}.fade-up.visible{opacity:1;transform:none}.fade-up.d1{transition-delay:.1s}.fade-up.d2{transition-delay:.2s}.fade-up.d3{transition-delay:.3s}.fade-up.d4{transition-delay:.4s}
+header{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:70px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,box-shadow .4s}header.scrolled{background:rgba(255,250,248,.97);box-shadow:0 1px 0 rgba(181,84,90,.1)}.logo{display:flex;align-items:center;gap:10px;font-family:var(--fn-en);font-size:15px;font-weight:500;color:var(--rose);letter-spacing:.04em}.logo svg{width:30px;height:30px;flex-shrink:0}
+nav{display:flex;align-items:center;gap:26px}nav a{font-size:13px;color:var(--dark);position:relative;transition:color .2s}nav a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--rose);transform:scaleX(0);transition:transform .3s;transform-origin:left}nav a:hover,nav a.cur{color:var(--rose)}nav a:hover::after,nav a.cur::after{transform:scaleX(1)}.btn-nav{padding:9px 20px;background:var(--rose);color:white!important;border-radius:50px;font-size:13px;font-weight:500;transition:background .3s,transform .2s}.btn-nav:hover{background:#8f3f44;transform:translateY(-1px)}.btn-nav::after{display:none!important}
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer}.menu-toggle span{display:block;width:22px;height:1.5px;background:var(--dark)}.mobile-nav{display:none;position:fixed;top:70px;left:0;right:0;background:rgba(255,250,248,.98);padding:20px 5% 28px;flex-direction:column;gap:18px;z-index:99;border-bottom:1px solid var(--rose-light)}.mobile-nav.open{display:flex}
+section{padding:90px 5%}.sec-lbl{display:inline-block;font-family:var(--fn-en);font-size:11px;letter-spacing:.2em;color:var(--rose);text-transform:uppercase;margin-bottom:14px}.sec-title{font-family:var(--fn-kr);font-size:clamp(24px,4vw,36px);font-weight:500;line-height:1.4;color:var(--dark);margin-bottom:14px}.sec-sub{font-size:15px;color:var(--warm-gray);line-height:1.9;max-width:540px}.center{text-align:center}.center .sec-sub{margin:0 auto}.floral{position:absolute;pointer-events:none}
+.btn-p{padding:13px 32px;background:var(--rose);color:white;border-radius:50px;font-size:14px;font-weight:500;transition:background .3s,transform .2s;display:inline-block}.btn-p:hover{background:#8f3f44;transform:translateY(-2px)}.btn-o{padding:13px 32px;background:transparent;color:var(--rose);border:1.5px solid var(--rose);border-radius:50px;font-size:14px;font-weight:500;transition:all .2s;display:inline-block}.btn-o:hover{background:var(--rose);color:white;transform:translateY(-2px)}
+footer{background:var(--rose);color:white;padding:52px 5% 32px}.ft{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:28px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.15);margin-bottom:24px}.ft-logo{display:flex;align-items:center;gap:10px;font-family:var(--fn-en);font-size:15px;font-weight:500;letter-spacing:.04em;margin-bottom:9px}.ft-desc{font-size:13px;opacity:.65;line-height:1.8;max-width:280px}.ft-links{display:flex;gap:22px;flex-wrap:wrap}.ft-links a{font-size:13px;opacity:.75;transition:opacity .2s}.ft-links a:hover{opacity:1}.ft-btm{font-size:12px;opacity:.4}
+@keyframes fslide{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+@media(max-width:768px){section{padding:68px 5%}nav{display:none}.menu-toggle{display:flex}.btn-nav-d{display:none}.ft{flex-direction:column;gap:20px}}@media(max-width:480px){.hero-btns{flex-direction:column;align-items:center}}
+
+.pg-hero{padding:140px 5% 60px;text-align:center;position:relative;overflow:hidden;background:var(--cream)}
+.pg-hero-label{font-family:var(--fn-en);font-size:11px;letter-spacing:.26em;color:var(--rose-soft);text-transform:uppercase;margin-bottom:18px;animation:fslide .8s ease both .1s}
+.pg-hero-title{font-family:var(--fn-kr);font-size:clamp(30px,5vw,52px);font-weight:700;line-height:1.2;color:var(--dark);margin-bottom:14px;animation:fslide .8s ease both .2s}
+.pg-hero-title em{font-style:normal;color:var(--rose)}
+.pg-hero-sub{font-size:15px;color:var(--warm-gray);line-height:1.9;max-width:480px;margin:0 auto;animation:fslide .8s ease both .3s}
+#book-section{background:white;padding:72px 5% 90px}
+.book-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:52px;align-items:start;max-width:1060px;margin:0 auto}
+
+/* 서비스 탭 */
+.svc-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.svc-tab{padding:7px 16px;border-radius:50px;border:1.5px solid var(--rose-light);background:white;font-family:var(--fn-sans);font-size:12px;color:var(--warm-gray);cursor:pointer;transition:all .2s;white-space:nowrap}
+.svc-tab:hover{border-color:var(--rose-soft);color:var(--rose)}
+.svc-tab.active{background:var(--rose);border-color:var(--rose);color:white}
+.svc-panel{display:none}.svc-panel.active{display:block}
+
+/* 서비스 카드 */
+.svc-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.svc-card{border:1.5px solid var(--rose-light);border-radius:13px;padding:13px 15px;cursor:pointer;transition:border-color .25s,background .25s;display:flex;align-items:center;gap:12px}
+.svc-card:hover{border-color:var(--rose-soft);background:var(--rose-pale)}
+.svc-card.selected{border-color:var(--rose);background:var(--rose-pale)}
+.svc-ico{width:36px;height:36px;background:var(--rose-pale);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.svc-card.selected .svc-ico{background:var(--rose)}
+.svc-nm{font-family:var(--fn-kr);font-size:13px;font-weight:500;color:var(--dark);margin-bottom:1px}
+.svc-sub{font-size:11px;color:var(--warm-gray)}
+.svc-pr{font-family:var(--fn-en);font-size:12.5px;font-weight:500;color:var(--rose);white-space:nowrap;margin-left:auto}
+.svc-type{font-size:10px;padding:2px 7px;border-radius:50px;margin-left:6px;vertical-align:middle}
+.type-event{background:var(--rose-pale);color:var(--rose);border:1px solid var(--floral)}
+.type-item{background:var(--gold-light);color:#7a5a20;border:1px solid #e0c88a}
+
+/* 예약 요약 */
+.bk-summary{background:var(--rose-pale);border:1px solid var(--floral);border-radius:11px;padding:13px 15px;margin-bottom:13px}
+.sum-row{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.sum-row+.sum-row{margin-top:5px;padding-top:5px;border-top:1px solid rgba(181,84,90,.1)}
+.sum-lbl{color:var(--warm-gray)}.sum-val{color:var(--dark);font-weight:500}.sum-val.rose{color:var(--rose)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:11px}
+.form-grp{display:flex;flex-direction:column;gap:5px}
+.form-grp label{font-size:11.5px;color:var(--warm-gray);letter-spacing:.04em;font-weight:500}
+.form-grp input,.form-grp select,.form-grp textarea{width:100%;padding:10px 13px;border:1.5px solid var(--rose-light);border-radius:9px;font-family:var(--fn-sans);font-size:13.5px;color:var(--dark);background:white;outline:none;transition:border-color .2s}
+.form-grp input:focus,.form-grp select:focus,.form-grp textarea:focus{border-color:var(--rose-soft)}
+.form-grp textarea{resize:vertical;min-height:68px}
+
+/* 구매/예약 구분 버튼 */
+.action-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.btn-buy{padding:13px;background:var(--gold);color:white;border:none;border-radius:11px;font-family:var(--fn-sans);font-size:14px;font-weight:500;cursor:pointer;transition:background .3s,transform .2s}
+.btn-buy:hover{background:#a8883a;transform:translateY(-1px)}
+.btn-book{padding:13px;background:var(--rose);color:white;border:none;border-radius:11px;font-family:var(--fn-sans);font-size:14px;font-weight:500;cursor:pointer;transition:background .3s,transform .2s}
+.btn-book:hover{background:#8f3f44;transform:translateY(-1px)}
+.btn-buy:disabled,.btn-book:disabled{background:#ccc;cursor:not-allowed;transform:none}
+
+/* 달력 */
+.cal-wrap{background:var(--cream);border:1px solid var(--rose-light);border-radius:18px;padding:24px;margin-bottom:20px}
+.cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.cal-title{font-family:var(--fn-kr);font-size:16px;font-weight:500;color:var(--dark)}
+.cal-nav-btn{width:30px;height:30px;border:1px solid var(--rose-light);border-radius:50%;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;color:var(--warm-gray);font-size:14px}
+.cal-nav-btn:hover{background:var(--rose-pale);border-color:var(--rose-soft);color:var(--rose)}
+.cal-dow{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px}
+.cal-dow span{text-align:center;font-size:11px;font-weight:500;color:var(--warm-gray);padding:4px 0}
+.cal-dow span:first-child{color:#c97878}.cal-dow span:last-child{color:#7891c4}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-size:12.5px;cursor:pointer;transition:background .2s,color .2s;color:var(--dark);gap:1px}
+.cal-day:hover:not(.booked):not(.past):not(.empty){background:var(--rose-pale);color:var(--rose)}
+.cal-day.today{font-weight:700;color:var(--rose)}
+.cal-day.sel{background:var(--rose);color:white}
+.cal-day.booked{background:#f0f0f0;color:#bbb;cursor:not-allowed}
+.booked-lbl{font-size:7px;color:#bbb;line-height:1}
+.cal-day.past{color:#ccc;cursor:not-allowed}
+.cal-day.empty{cursor:default}
+.cal-day.sun:not(.booked){color:#c97878}.cal-day.sat:not(.booked){color:#7891c4}
+.cal-legend{display:flex;gap:12px;margin-top:12px;justify-content:flex-end;flex-wrap:wrap}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--warm-gray)}
+.leg-dot{width:9px;height:9px;border-radius:3px}
+
+/* 안내 박스 */
+.info-box{background:var(--cream);border:1px solid var(--rose-light);border-radius:14px;padding:20px 22px}
+
+/* 모달 */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(44,31,31,.45);z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal-ov.open{display:flex}
+.modal-box{background:white;border-radius:22px;padding:42px 34px;max-width:440px;width:100%;text-align:center}
+.modal-ico{width:58px;height:58px;background:var(--rose-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:26px}
+.modal-ttl{font-family:var(--fn-kr);font-size:20px;font-weight:500;color:var(--dark);margin-bottom:10px}
+.modal-sub{font-size:13px;color:var(--warm-gray);line-height:1.85;margin-bottom:24px}
+.modal-close{padding:10px 32px;background:var(--rose);color:white;border:none;border-radius:50px;font-family:var(--fn-sans);font-size:14px;cursor:pointer;transition:background .3s}
+.modal-close:hover{background:#8f3f44}
+
+@media(max-width:900px){.book-wrap{grid-template-columns:1fr}}
+@media(max-width:640px){.form-row{grid-template-columns:1fr}.action-btns{grid-template-columns:1fr}}
+/* MOMENT unified header + subpage scene */
+header.site-header{position:fixed;top:0;left:0;right:0;z-index:200;height:82px;padding:0 3.1%;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.96);border-bottom:1px solid rgba(44,31,31,.08);box-shadow:0 10px 28px rgba(44,31,31,.04);backdrop-filter:blur(8px)}
+.site-header .brand{display:flex;flex-direction:column;align-items:flex-start;line-height:1;color:var(--dark)}
+.site-header .brand-main{font-family:var(--fn-en);font-size:clamp(28px,2.5vw,40px);font-weight:700;letter-spacing:.08em;color:var(--dark)}
+.site-header .brand-sub{margin-top:8px;padding-left:.45em;font-family:var(--fn-en);font-size:12px;letter-spacing:.36em;text-transform:uppercase;color:var(--dark)}
+.site-header nav{display:flex;align-items:center;gap:clamp(26px,3vw,52px)}
+.site-header nav a{font-size:16px;color:var(--dark);white-space:nowrap;position:relative;transition:color .2s ease}
+.site-header nav a::after{content:'';position:absolute;left:0;right:0;bottom:-8px;height:1px;background:var(--rose);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.site-header nav a:hover,.site-header nav a.cur{color:var(--rose)}
+.site-header nav a:hover::after,.site-header nav a.cur::after{transform:scaleX(1)}
+.site-header nav .nav-cta{padding:13px 28px;color:#fff!important;background:#bf4f5e;border-radius:999px;box-shadow:0 8px 18px rgba(181,84,90,.18)}
+.site-header nav .nav-cta::after{display:none}.site-header nav .nav-cta:hover{background:#9f3f4d;color:#fff!important}
+.mobile-nav{top:82px!important;background:rgba(255,255,255,.98)!important;z-index:199!important}
+.pg-hero{padding:152px 5% 88px!important;position:relative;overflow:hidden;background:#fffaf8!important;border-bottom:1px solid rgba(181,84,90,.10)}
+.pg-hero::before{content:'';position:absolute;inset:0;background:url('concept.png') center 38%/cover no-repeat;opacity:.26;transform:scale(1.02)}
+.pg-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 58% 78% at 50% 48%,rgba(255,250,248,.90) 0%,rgba(255,250,248,.72) 54%,rgba(255,250,248,.58) 100%)}
+.pg-hero>*{position:relative;z-index:1}.pg-hero>div[style*="pointer-events"]{display:none!important}
+.pg-hero-title{color:#2c1f1f!important}.pg-hero-title em{color:#b5545a;font-style:normal}.pg-hero-label{color:#b5545a!important}.pg-hero-sub{color:#5f5551!important}
+@media(max-width:768px){header.site-header{height:72px}.site-header .brand-main{font-size:27px}.site-header .brand-sub{font-size:9px}.site-header nav{display:none}.mobile-nav{top:72px!important}.pg-hero{padding-top:124px!important}}
+</style>
+</head>
+<body>
+<header id="header" class="site-header"><a class="brand" href="index.html" aria-label="MOMENT Party Recipe"><span class="brand-main">MOMENT</span><span class="brand-sub">Party Recipe</span></a><nav aria-label="주 메뉴"><a href="events.html">Moment 이야기</a><a href="packages.html">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="booking.html" class="nav-cta">문의하기</a></nav><div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div></header><div class="mobile-nav" id="mobileNav"><a href="events.html">Moment 이야기</a><a href="packages.html">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="booking.html">문의하기</a></div>
+
+<div class="pg-hero">
+  <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden"><svg class="floral" style="top:0;right:0;width:clamp(200px,26vw,360px);opacity:.68" viewBox="0 0 400 380"><g transform="translate(248,75)"><ellipse cx="0" cy="0" rx="40" ry="27" fill="#F4C0D1" transform="rotate(-25)"/><ellipse cx="7" cy="-7" rx="32" ry="21" fill="#F0B4C4" transform="rotate(15)"/><ellipse cx="-5" cy="7" rx="27" ry="17" fill="#ECA8BA" transform="rotate(-38)"/><circle cx="0" cy="0" r="10" fill="#D4537E"/><circle cx="0" cy="0" r="5" fill="#B5545A"/></g><ellipse cx="200" cy="98" rx="30" ry="9" fill="#A8C5A0" transform="rotate(25 200 98)" opacity=".85"/></svg><svg class="floral" style="bottom:0;left:0;width:clamp(160px,20vw,280px);opacity:.62;transform:scaleX(-1)" viewBox="0 0 340 320"><g transform="translate(115,192)"><ellipse cx="0" cy="0" rx="38" ry="25" fill="#F4C0D1" transform="rotate(20)"/><circle cx="0" cy="0" r="10" fill="#D4537E"/><circle cx="0" cy="0" r="5" fill="#B5545A"/></g><ellipse cx="76" cy="166" rx="28" ry="8" fill="#A8C5A0" transform="rotate(-24 76 166)" opacity=".85"/></svg></div>
+  <p class="pg-hero-label">Reservation & Order</p>
+  <h1 class="pg-hero-title">서비스 <em>예약 & 구매</em></h1>
+  <p class="pg-hero-sub">이벤트 예약과 단품 구매 모두 가능합니다.<br>카테고리에서 원하는 서비스를 선택해주세요.</p>
+</div>
+
+<section id="book-section">
+  <div class="book-wrap">
+    <!-- 왼쪽: 서비스 선택 + 폼 -->
+    <div class="fade-up">
+      <span class="sec-lbl" style="display:block;margin-bottom:12px">서비스 선택</span>
+      <div class="svc-tabs">
+        <button class="svc-tab active" data-stab="wedding">💍 웨딩</button>
+        <button class="svc-tab" data-stab="baby">🍼 베이비·돌잔치</button>
+        <button class="svc-tab" data-stab="celebration">🎉 기념·축하</button>
+        <button class="svc-tab" data-stab="seasonal">🌿 기념일·시즌</button>
+      </div>
+      <div class="svc-panel active" id="sp-wedding">
+        <div class="svc-list"><div class="svc-card" data-s="프로포즈 이벤트 패키지" data-p="₩79,000" data-type="event">
+  <div class="svc-ico">💍</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">프로포즈 이벤트 패키지<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">공간 연출·플로럴·포토 촬영</div>
+  </div>
+  <div class="svc-pr">₩79,000</div>
+</div>
+<div class="svc-card" data-s="드립백 청첩장" data-p="₩30,000 / 20개입" data-type="item">
+  <div class="svc-ico">☕</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">드립백 청첩장<span class="svc-type type-item">단품구매</span></div>
+    <div class="svc-sub">20개입 단품 구매 가능</div>
+  </div>
+  <div class="svc-pr">₩30,000 / 20개입</div>
+</div>
+<div class="svc-card" data-s="웨딩촬영 이벤트 패키지" data-p="₩99,000" data-type="event">
+  <div class="svc-ico">📸</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">웨딩촬영 이벤트 패키지<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">플라워 아치·소품 7종·케이크 토퍼</div>
+  </div>
+  <div class="svc-pr">₩99,000</div>
+</div>
+<div class="svc-card" data-s="브라이덜샤워 패키지" data-p="₩79,000" data-type="event">
+  <div class="svc-ico">🎀</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">브라이덜샤워 패키지<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">풍선 아치·디저트·포토존</div>
+  </div>
+  <div class="svc-pr">₩79,000</div>
+</div>
+<div class="svc-card" data-s="결혼식 답례품" data-p="₩100,000 / 10개 세트" data-type="item">
+  <div class="svc-ico">🎁</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">결혼식 답례품<span class="svc-type type-item">단품구매</span></div>
+    <div class="svc-sub">10개 세트 단품 구매 가능</div>
+  </div>
+  <div class="svc-pr">₩100,000 / 10개 세트</div>
+</div></div>
+      </div>
+      <div class="svc-panel" id="sp-baby">
+        <div class="svc-list"><div class="svc-card" data-s="젠더리빌 파티 패키지" data-p="₩79,000" data-type="event">
+  <div class="svc-ico">🍼</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">젠더리빌 파티 패키지<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">박스·풍선·컨페티·가랜드 풀 세트</div>
+  </div>
+  <div class="svc-pr">₩79,000</div>
+</div>
+<div class="svc-card" data-s="백일상 이벤트 패키지" data-p="₩89,000" data-type="event">
+  <div class="svc-ico">🌸</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">백일상 이벤트 패키지<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">한옥 감성 백일상·기저귀 케이크</div>
+  </div>
+  <div class="svc-pr">₩89,000</div>
+</div>
+<div class="svc-card" data-s="돌상 이벤트 패키지" data-p="₩89,000" data-type="event">
+  <div class="svc-ico">🎂</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">돌상 이벤트 패키지<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">자수 배너·돌잡이 세트·생화 플로럴</div>
+  </div>
+  <div class="svc-pr">₩89,000</div>
+</div>
+<div class="svc-card" data-s="돌·백일 답례품" data-p="₩100,000 / 10개 세트" data-type="item">
+  <div class="svc-ico">🧧</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">돌·백일 답례품<span class="svc-type type-item">단품구매</span></div>
+    <div class="svc-sub">10개 세트 단품 구매 가능</div>
+  </div>
+  <div class="svc-pr">₩100,000 / 10개 세트</div>
+</div></div>
+      </div>
+      <div class="svc-panel" id="sp-celebration">
+        <div class="svc-list"><div class="svc-card" data-s="생일 파티 기획" data-p="₩150,000~" data-type="event">
+  <div class="svc-ico">🎂</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">생일 파티 기획<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">키즈·어덜트·서프라이즈</div>
+  </div>
+  <div class="svc-pr">₩150,000~</div>
+</div>
+<div class="svc-card" data-s="졸업식 이벤트 패키지" data-p="₩69,000" data-type="event">
+  <div class="svc-ico">🎓</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">졸업식 이벤트 패키지<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">꽃다발·학사모·인형·풍선·포토소품</div>
+  </div>
+  <div class="svc-pr">₩69,000</div>
+</div>
+<div class="svc-card" data-s="입학식 이벤트 패키지" data-p="₩69,000" data-type="event">
+  <div class="svc-ico">📚</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">입학식 이벤트 패키지<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">풍선·가랜드·포토소품·메시지카드</div>
+  </div>
+  <div class="svc-pr">₩69,000</div>
+</div>
+<div class="svc-card" data-s="칠순잔치 이벤트 패키지" data-p="₩89,000" data-type="event">
+  <div class="svc-ico">🥂</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">칠순잔치 이벤트 패키지<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">현수막·골드풍선·보자기포장 세트</div>
+  </div>
+  <div class="svc-pr">₩89,000</div>
+</div>
+<div class="svc-card" data-s="환갑·팔순 연회" data-p="₩800,000~" data-type="event">
+  <div class="svc-ico">🌸</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">환갑·팔순 연회<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">전통 포토존·테이블 세팅·기념영상</div>
+  </div>
+  <div class="svc-pr">₩800,000~</div>
+</div>
+<div class="svc-card" data-s="정년퇴직 기념 파티" data-p="₩500,000~" data-type="event">
+  <div class="svc-ico">🎖️</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">정년퇴직 기념 파티<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">감사패·플로럴·케이터링</div>
+  </div>
+  <div class="svc-pr">₩500,000~</div>
+</div></div>
+      </div>
+      <div class="svc-panel" id="sp-seasonal">
+        <div class="svc-list"><div class="svc-card" data-s="결혼기념일 서프라이즈" data-p="₩200,000~" data-type="event">
+  <div class="svc-ico">🌿</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">결혼기념일 서프라이즈<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">플로럴 데코·캔들·포토존 낭만 세팅</div>
+  </div>
+  <div class="svc-pr">₩200,000~</div>
+</div>
+<div class="svc-card" data-s="크리스마스 이벤트 패키지" data-p="₩69,000" data-type="event">
+  <div class="svc-ico">🎄</div>
+  <div style="flex:1;min-width:0">
+    <div class="svc-nm">크리스마스 이벤트 패키지<span class="svc-type type-event">이벤트</span></div>
+    <div class="svc-sub">가랜드·테이블용품·의상·포토소품</div>
+  </div>
+  <div class="svc-pr">₩69,000</div>
+</div></div>
+      </div>
+
+      <!-- 요약 -->
+      <div class="bk-summary">
+        <div class="sum-row"><span class="sum-lbl">선택 서비스</span><span class="sum-val rose" id="sumSvc">서비스를 선택해주세요</span></div>
+        <div class="sum-row"><span class="sum-lbl">유형</span><span class="sum-val" id="sumType">—</span></div>
+        <div class="sum-row"><span class="sum-lbl">날짜</span><span class="sum-val" id="sumDate">날짜를 선택해주세요</span></div>
+        <div class="sum-row"><span class="sum-lbl">시간</span><span class="sum-val" id="sumTime">시간을 선택해주세요</span></div>
+        <div class="sum-row"><span class="sum-lbl">시작 금액</span><span class="sum-val rose" id="sumPrice">—</span></div>
+      </div>
+
+      <!-- 폼 -->
+      <div class="form-row">
+        <div class="form-grp"><label>이름</label><input type="text" id="iName" placeholder="홍길동"></div>
+        <div class="form-grp"><label>연락처</label><input type="tel" id="iPhone" placeholder="010-0000-0000"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-grp"><label>이메일</label><input type="email" id="iEmail" placeholder="example@email.com"></div>
+        <div class="form-grp"><label>희망 시간 <span style="color:var(--warm-gray);font-weight:400">(이벤트만)</span></label>
+          <select id="iTime"><option value="">시간 선택</option><option>10:00</option><option>11:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option></select>
+        </div>
+      </div>
+      <div class="form-grp" style="margin-bottom:14px">
+        <label>수량 / 요청 사항</label>
+        <textarea id="iNote" placeholder="이벤트: 예상 인원, 테마, 요청 사항&#10;단품 구매: 수량, 맞춤 문구, 배송 주소 등"></textarea>
+      </div>
+
+      <!-- 구매/예약 이중 버튼 -->
+      <div class="action-btns">
+        <button class="btn-buy" id="btnBuy" disabled>🛍️ 바로 구매하기</button>
+        <button class="btn-book" id="btnBook" disabled>📅 이벤트 예약하기</button>
+      </div>
+      <p id="actionHint" style="font-size:12px;color:var(--warm-gray);margin-top:8px;text-align:center">서비스를 먼저 선택해주세요</p>
+    </div>
+
+    <!-- 오른쪽: 달력 + 안내 -->
+    <div class="fade-up d2">
+      <div class="cal-wrap">
+        <div class="cal-hdr">
+          <button class="cal-nav-btn" id="calPrev">‹</button>
+          <h3 class="cal-title" id="calTitle"></h3>
+          <button class="cal-nav-btn" id="calNext">›</button>
+        </div>
+        <div class="cal-dow"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="cal-legend">
+          <div class="leg-item"><div class="leg-dot" style="background:#efefef"></div>예약완료</div>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--rose)"></div>선택</div>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--rose-pale);border:1px solid var(--rose-soft)"></div>예약가능</div>
+        </div>
+      </div>
+      <div class="info-box">
+        <div style="font-family:var(--fn-kr);font-size:15px;font-weight:500;color:var(--dark);margin-bottom:12px">💡 안내</div>
+        <div style="font-size:13px;color:var(--warm-gray);line-height:1.9">
+          · <strong>이벤트 예약</strong>: 날짜·시간 선택 후 예약 확정<br>
+          · <strong>단품 구매</strong>: 날짜 선택 없이도 구매 가능<br>
+          · 예약·주문 후 담당자가 1~2시간 내 연락드립니다<br>
+          · 이벤트는 1개월 전 예약을 권장합니다<br>
+          · 맞춤 주문 및 대량 주문 상담 가능합니다
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 예약 완료 모달 -->
+<div class="modal-ov" id="modalOv">
+  <div class="modal-box">
+    <div class="modal-ico" id="modalIco">✅</div>
+    <h3 class="modal-ttl" id="modalTtl">완료!</h3>
+    <p class="modal-sub" id="modalTxt"></p>
+    <button class="modal-close" id="modalClose">확인</button>
+  </div>
+</div>
+
+<footer><div class="ft"><div><div class="ft-logo"><svg width="20" height="20" viewBox="0 0 30 30" fill="none"><path d="M15 26C15 26 4 18.5 4 11C4 7.7 6.7 5 10 5C12.2 5 14.1 6.3 15 8.2C15.9 6.3 17.8 5 20 5C23.3 5 26 7.7 26 11C26 18.5 15 26 15 26Z" fill="rgba(255,255,255,.3)" stroke="white" stroke-width="1.2"/></svg> Party Recipe</div><p class="ft-desc">탄생부터 은퇴까지, 일생의 모든 특별한 순간을 함께합니다.</p></div><div class="ft-links"><a href="index.html">홈</a><a href="events.html">Moment 이야기</a><a href="packages.html">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="#">인스타그램</a></div></div><p class="ft-btm">© 2025 Party Recipe. All rights reserved.</p></footer>
+<script>const hdr=document.getElementById("header");window.addEventListener("scroll",()=>hdr.classList.toggle("scrolled",window.scrollY>30));document.getElementById("menuToggle").addEventListener("click",()=>document.getElementById("mobileNav").classList.toggle("open"));document.getElementById("mobileNav").querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>document.getElementById("mobileNav").classList.remove("open")));const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("visible");obs.unobserve(x.target);}}),{threshold:0.1});document.querySelectorAll(".fade-up").forEach(el=>obs.observe(el));</script>
+<script>
+// ── 서비스 탭 전환 ──
+document.querySelectorAll('.svc-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.svc-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.svc-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('sp-'+tab.dataset.stab).classList.add('active');
+    // 선택 초기화
+    document.querySelectorAll('.svc-card').forEach(c=>c.classList.remove('selected'));
+    resetSelection();
+  });
+});
+
+// ── 서비스 카드 선택 ──
+let selSvc='', selPr='', selType='';
+
+function resetSelection(){
+  selSvc=''; selPr=''; selType='';
+  document.getElementById('sumSvc').textContent='서비스를 선택해주세요';
+  document.getElementById('sumType').textContent='—';
+  document.getElementById('sumPrice').textContent='—';
+  updateActionBtns();
+}
+
+document.addEventListener('click', e=>{
+  const card = e.target.closest('.svc-card');
+  if(!card) return;
+  document.querySelectorAll('.svc-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected');
+  selSvc = card.dataset.s;
+  selPr  = card.dataset.p;
+  selType= card.dataset.type;
+  document.getElementById('sumSvc').textContent = selSvc;
+  document.getElementById('sumType').textContent = selType==='event' ? '📅 이벤트 예약' : '🛍️ 단품 구매';
+  document.getElementById('sumPrice').textContent = selPr;
+  updateActionBtns();
+});
+
+// ── 달력 ──
+const today=new Date();
+let cY=today.getFullYear(), cM=today.getMonth(), selDate=null;
+const booked=new Set();
+const y=today.getFullYear(), m=today.getMonth();
+[4,8,11,15,18,22,25].forEach(d=>booked.add(`${y}-${m}-${d}`));
+[3,6,10,13,17,20,24,27].forEach(d=>booked.add(`${y}-${m+1}-${d}`));
+
+function renderCal(){
+  const mn=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  document.getElementById('calTitle').textContent=`${cY}년 ${mn[cM]}`;
+  const grid=document.getElementById('calGrid'); grid.innerHTML='';
+  const fd=new Date(cY,cM,1).getDay(), days=new Date(cY,cM+1,0).getDate();
+  for(let i=0;i<fd;i++){const e=document.createElement('div');e.className='cal-day empty';grid.appendChild(e);}
+  for(let d=1;d<=days;d++){
+    const cell=document.createElement('div');
+    const dow=new Date(cY,cM,d).getDay();
+    const key=`${cY}-${cM}-${d}`;
+    const isPast=new Date(cY,cM,d)<new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    const isBook=booked.has(key);
+    const isTod=d===today.getDate()&&cM===today.getMonth()&&cY===today.getFullYear();
+    const isSel=selDate&&selDate.y===cY&&selDate.m===cM&&selDate.d===d;
+    let cls='cal-day';
+    if(dow===0)cls+=' sun'; if(dow===6)cls+=' sat';
+    if(isPast)cls+=' past'; else if(isBook)cls+=' booked'; else if(isTod)cls+=' today';
+    if(isSel&&!isBook&&!isPast)cls+=' sel';
+    cell.className=cls;
+    if(isBook){cell.innerHTML=`<span>${d}</span><span class="booked-lbl">예약완료</span>`;}
+    else cell.textContent=d;
+    if(!isPast&&!isBook){
+      cell.addEventListener('click',()=>{
+        selDate={y:cY,m:cM,d};
+        document.getElementById('sumDate').textContent=`${cY}년 ${mn[cM]} ${d}일`;
+        updateActionBtns(); renderCal();
+      });
+    }
+    grid.appendChild(cell);
+  }
+}
+document.getElementById('calPrev').addEventListener('click',()=>{cM--;if(cM<0){cM=11;cY--;}renderCal();});
+document.getElementById('calNext').addEventListener('click',()=>{cM++;if(cM>11){cM=0;cY++;}renderCal();});
+renderCal();
+
+document.getElementById('iTime').addEventListener('change',function(){
+  document.getElementById('sumTime').textContent=this.value||'시간을 선택해주세요';
+  updateActionBtns();
+});
+
+// ── 버튼 상태 업데이트 ──
+function updateActionBtns(){
+  const buy=document.getElementById('btnBuy');
+  const book=document.getElementById('btnBook');
+  const hint=document.getElementById('actionHint');
+  const t=document.getElementById('iTime').value;
+
+  if(!selSvc){
+    buy.disabled=true; book.disabled=true;
+    hint.textContent='서비스를 먼저 선택해주세요';
+    return;
+  }
+  if(selType==='item'){
+    // 단품: 날짜 없어도 구매 가능
+    buy.disabled=false;
+    book.disabled=true;
+    hint.textContent='단품 구매는 날짜 선택 없이 바로 구매하실 수 있어요';
+  } else {
+    // 이벤트: 날짜+시간 모두 필요
+    buy.disabled=true;
+    book.disabled=!(selDate && t);
+    if(!selDate) hint.textContent='날짜를 선택해주세요';
+    else if(!t) hint.textContent='희망 시간을 선택해주세요';
+    else { hint.textContent='예약 준비 완료! 아래 버튼을 눌러주세요'; hint.style.color='var(--rose)'; }
+  }
+}
+
+// ── 구매 처리 ──
+document.getElementById('btnBuy').addEventListener('click',()=>{
+  const name=document.getElementById('iName').value.trim();
+  const phone=document.getElementById('iPhone').value.trim();
+  if(!name||!phone){alert('이름과 연락처를 입력해주세요.');return;}
+  const note=document.getElementById('iNote').value.trim();
+  showModal('🛍️','구매 신청이 완료되었습니다!',
+    `<strong>${name}</strong>님의 주문을 받았습니다.<br><br>` +
+    `📦 상품: ${selSvc}<br>` +
+    `💰 금액: ${selPr}<br>` +
+    `📞 연락처: ${phone}<br>` +
+    (note?`📝 요청: ${note}<br>`:'')+
+    `<br>담당자가 1~2시간 내 연락드립니다.`);
+  resetForm();
+});
+
+// ── 예약 처리 ──
+document.getElementById('btnBook').addEventListener('click',()=>{
+  const name=document.getElementById('iName').value.trim();
+  const phone=document.getElementById('iPhone').value.trim();
+  if(!name||!phone){alert('이름과 연락처를 입력해주세요.');return;}
+  const mn=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  const ds=`${selDate.y}년 ${mn[selDate.m]} ${selDate.d}일`;
+  const ts=document.getElementById('iTime').value;
+  booked.add(`${selDate.y}-${selDate.m}-${selDate.d}`);
+  showModal('📅','예약이 완료되었습니다!',
+    `<strong>${name}</strong>님의 예약을 확정했습니다.<br><br>` +
+    `🎉 서비스: ${selSvc}<br>` +
+    `📅 날짜: ${ds}<br>` +
+    `🕐 시간: ${ts}<br>` +
+    `📞 연락처: ${phone}<br>` +
+    `<br>담당자가 1~2시간 내 연락드립니다.`);
+  selDate=null;
+  document.getElementById('sumDate').textContent='날짜를 선택해주세요';
+  document.getElementById('sumTime').textContent='시간을 선택해주세요';
+  document.getElementById('iTime').value='';
+  renderCal(); resetForm();
+});
+
+function showModal(ico, ttl, txt){
+  document.getElementById('modalIco').textContent=ico;
+  document.getElementById('modalTtl').textContent=ttl;
+  document.getElementById('modalTxt').innerHTML=txt;
+  document.getElementById('modalOv').classList.add('open');
+}
+
+function resetForm(){
+  ['iName','iPhone','iEmail','iNote'].forEach(id=>document.getElementById(id).value='');
+  document.querySelectorAll('.svc-card').forEach(c=>c.classList.remove('selected'));
+  resetSelection();
+  document.getElementById('actionHint').style.color='';
+}
+
+document.getElementById('modalClose').addEventListener('click',()=>document.getElementById('modalOv').classList.remove('open'));
+document.getElementById('modalOv').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+
+// URL 파라미터로 카테고리 자동 선택
+const params=new URLSearchParams(location.search);
+const pkg=params.get('pkg');
+if(pkg){
+  const tabMap={wedding:'wedding',baby:'baby',dol:'baby',birthday:'celebration',graduation:'celebration',anniversary:'seasonal',senior:'celebration',seasonal:'seasonal'};
+  const tabId=tabMap[pkg]||'wedding';
+  document.querySelectorAll('.svc-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.svc-panel').forEach(p=>p.classList.remove('active'));
+  const tab=document.querySelector(`[data-stab="${tabId}"]`);
+  if(tab){tab.classList.add('active');document.getElementById('sp-'+tabId).classList.add('active');}
+}
+</script>
+</body>
+</html>
+
+
+

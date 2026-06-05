@@ -73,16 +73,27 @@ header.site-header{position:fixed;top:0;left:0;right:0;z-index:200;height:82px;p
 .pg-hero>*{position:relative;z-index:1}.pg-hero>div[style*="pointer-events"]{display:none!important}
 .pg-hero-title{color:#2c1f1f!important}.pg-hero-title em{color:#b5545a;font-style:normal}.pg-hero-label{color:#b5545a!important}.pg-hero-sub{color:#5f5551!important}
 @media(max-width:768px){header.site-header{height:72px}.site-header .brand-main{font-size:27px}.site-header .brand-sub{font-size:9px}.site-header nav{display:none}.mobile-nav{top:72px!important}.pg-hero{padding-top:124px!important}}
+.pg-hero.service-showroom{padding:82px 0 0!important;background:#fff!important;border-bottom:1px solid rgba(181,84,90,.10);line-height:0}
+.pg-hero.service-showroom::before,.pg-hero.service-showroom::after{display:none!important}
+.service-hero-frame{position:relative;width:100%;aspect-ratio:1746/490;min-height:330px;overflow:hidden;background:#fffaf8}
+.service-hero-frame img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.service-hero-link{position:absolute;z-index:2;top:81.3%;height:10.6%;border-radius:999px;font-size:0;line-height:0}
+.service-hero-link.events{left:38.45%;width:10.65%}
+.service-hero-link.booking{left:50.85%;width:10.75%}
+.service-showroom + #shop{padding-top:34px}
+.service-showroom + #shop .tab-nav{margin-bottom:32px}
+@media(max-width:768px){.pg-hero.service-showroom{padding-top:72px!important}.service-hero-frame{min-height:330px}.service-hero-link{display:none}}
 </style>
 </head>
 <body>
-<header id="header" class="site-header"><a class="brand" href="index.html" aria-label="MOMENT Party Recipe"><span class="brand-main">MOMENT</span><span class="brand-sub">Party Recipe</span></a><nav aria-label="주 메뉴"><a href="events.html">Moment 이야기</a><a href="packages.html">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="booking.html" class="nav-cta">문의하기</a></nav><div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div></header><div class="mobile-nav" id="mobileNav"><a href="events.html">Moment 이야기</a><a href="packages.html">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="booking.html">문의하기</a></div>
+<header id="header" class="site-header"><a class="brand" href="index.html" aria-label="MOMENT Party Recipe"><span class="brand-main">MOMENT</span><span class="brand-sub">Party Recipe</span></a><nav aria-label="주 메뉴"><a href="events.html">Moment 이야기</a><a href="packages.html?v=showroom">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="booking.html" class="nav-cta">문의하기</a></nav><div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div></header><div class="mobile-nav" id="mobileNav"><a href="events.html">Moment 이야기</a><a href="packages.html?v=showroom">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="booking.html">문의하기</a></div>
 
-<div class="pg-hero">
-  <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden"><svg class="floral" style="top:0;right:0;width:clamp(200px,26vw,360px);opacity:.68" viewBox="0 0 400 380"><g transform="translate(248,75)"><ellipse cx="0" cy="0" rx="40" ry="27" fill="#F4C0D1" transform="rotate(-25)"/><ellipse cx="7" cy="-7" rx="32" ry="21" fill="#F0B4C4" transform="rotate(15)"/><ellipse cx="-5" cy="7" rx="27" ry="17" fill="#ECA8BA" transform="rotate(-38)"/><circle cx="0" cy="0" r="10" fill="#D4537E"/><circle cx="0" cy="0" r="5" fill="#B5545A"/></g><ellipse cx="200" cy="98" rx="30" ry="9" fill="#A8C5A0" transform="rotate(25 200 98)" opacity=".85"/></svg><svg class="floral" style="bottom:0;left:0;width:clamp(160px,20vw,280px);opacity:.62;transform:scaleX(-1)" viewBox="0 0 340 320"><g transform="translate(115,192)"><ellipse cx="0" cy="0" rx="38" ry="25" fill="#F4C0D1" transform="rotate(20)"/><circle cx="0" cy="0" r="10" fill="#D4537E"/><circle cx="0" cy="0" r="5" fill="#B5545A"/></g><ellipse cx="76" cy="166" rx="28" ry="8" fill="#A8C5A0" transform="rotate(-24 76 166)" opacity=".85"/></svg></div>
-  <p class="pg-hero-label">Moment Service</p>
-  <h1 class="pg-hero-title">MOMENT <em>서비스</em></h1>
-  <p class="pg-hero-sub">기획부터 연출, 촬영 소품과 답례품까지<br>특별한 날에 필요한 구성을 한곳에서 준비합니다.</p>
+<div class="pg-hero service-showroom">
+  <div class="service-hero-frame" aria-label="이벤트 패키지와 답례품 소개">
+    <img src="assets/service-hero-showroom.png" alt="이벤트 패키지와 답례품 쇼룸">
+    <a class="service-hero-link events" href="events.html">이벤트 알아보기</a>
+    <a class="service-hero-link booking" href="booking.html">지금 예약하기</a>
+  </div>
 </div>
 <section id="shop">
   <div class="tab-nav" id="tabNav">
@@ -467,7 +478,7 @@ header.site-header{position:fixed;top:0;left:0;right:0;z-index:200;height:82px;p
   </div>
 </section>
 
-<footer><div class="ft"><div><div class="ft-logo"><svg width="20" height="20" viewBox="0 0 30 30" fill="none"><path d="M15 26C15 26 4 18.5 4 11C4 7.7 6.7 5 10 5C12.2 5 14.1 6.3 15 8.2C15.9 6.3 17.8 5 20 5C23.3 5 26 7.7 26 11C26 18.5 15 26 15 26Z" fill="rgba(255,255,255,.3)" stroke="white" stroke-width="1.2"/></svg> Party Recipe</div><p class="ft-desc">탄생부터 은퇴까지, 일생의 모든 특별한 순간을 함께합니다.</p></div><div class="ft-links"><a href="index.html">홈</a><a href="events.html">Moment 이야기</a><a href="packages.html">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="#">인스타그램</a></div></div><p class="ft-btm">© 2025 Party Recipe. All rights reserved.</p></footer>
+<footer><div class="ft"><div><div class="ft-logo"><svg width="20" height="20" viewBox="0 0 30 30" fill="none"><path d="M15 26C15 26 4 18.5 4 11C4 7.7 6.7 5 10 5C12.2 5 14.1 6.3 15 8.2C15.9 6.3 17.8 5 20 5C23.3 5 26 7.7 26 11C26 18.5 15 26 15 26Z" fill="rgba(255,255,255,.3)" stroke="white" stroke-width="1.2"/></svg> Party Recipe</div><p class="ft-desc">탄생부터 은퇴까지, 일생의 모든 특별한 순간을 함께합니다.</p></div><div class="ft-links"><a href="index.html">홈</a><a href="events.html">Moment 이야기</a><a href="packages.html?v=showroom">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="#">인스타그램</a></div></div><p class="ft-btm">© 2025 Party Recipe. All rights reserved.</p></footer>
 <script>const hdr=document.getElementById("header");window.addEventListener("scroll",()=>hdr.classList.toggle("scrolled",window.scrollY>30));document.getElementById("menuToggle").addEventListener("click",()=>document.getElementById("mobileNav").classList.toggle("open"));document.getElementById("mobileNav").querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>document.getElementById("mobileNav").classList.remove("open")));const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("visible");obs.unobserve(x.target);}}),{threshold:0.1});document.querySelectorAll(".fade-up").forEach(el=>obs.observe(el));</script>
 <script>
 document.querySelectorAll('.tab-btn').forEach(btn=>{

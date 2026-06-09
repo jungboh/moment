@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -147,9 +147,7 @@
   .cat-icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; }
   .cat-ko { display: block; font-size: clamp(12px, 1.55vh, 16px); font-weight: 500; }
   .cat-en { display: block; margin-top: 5px; font-size: clamp(9px, 1.18vh, 12px); color: #a77658; text-transform: uppercase; }
-  .category-card:nth-child(n+7) { transform: none; }
-  .category-card:nth-child(n+7):hover { transform: translateY(-2px); }
-  @media (min-width: 981px) { .category-card:nth-child(7) { grid-column: 2; } }
+  .category-card:nth-child(n+7) { transform: none; }`r`n  .category-card:nth-child(n+7):hover { transform: translateY(-2px); }`r`n  @media (min-width: 981px) { .category-card:nth-child(7) { grid-column: 2; } }
   .features {
     min-height: 0;
     display: grid;
@@ -231,17 +229,18 @@
 .page-banner picture,.page-banner img{display:block!important;width:100%!important;height:auto!important;margin:0!important;padding:0!important}
 .page-banner img{object-fit:contain!important;object-position:center center!important}
 @media(max-width:980px){.page-banner{margin-top:64px!important}.page-banner img{object-fit:contain!important}}
-/* Index cleanup: unified category board + compact lower band */
-.home-detail{background:#fffaf8!important;margin:0!important;padding:0!important;display:block!important}
-.categories{padding:16px 3.5% 18px!important;background:#fff!important;overflow:hidden!important;display:block!important}
-.category-scroll{width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
-.category-board{position:relative;width:min(1180px,100%);min-width:760px;aspect-ratio:1672/941;margin:0 auto;background:#fff}
-.category-board img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;border-radius:0!important}
-.category-hotspot{position:absolute;border-radius:8px;outline-offset:3px;transition:box-shadow .18s ease, transform .18s ease}
-.category-hotspot:hover,.category-hotspot:focus-visible{box-shadow:0 10px 24px rgba(181,84,90,.12);transform:translateY(-1px)}
-.home-bottom{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;height:auto!important;margin:0!important;padding:22px 5% 28px!important;background:#fffaf8!important;line-height:0!important;overflow:hidden!important;border-top:1px solid rgba(181,84,90,.06)!important}
-.home-bottom img{display:block!important;width:min(1320px,100%)!important;height:auto!important;max-height:104px!important;object-fit:contain!important;object-position:center center!important;margin:0 auto!important;padding:0!important}
-@media(max-width:980px){.categories{padding:12px 0 14px!important}.category-scroll{padding:0 4%}.category-board{min-width:760px;width:760px}.home-bottom{padding:18px 4% 22px!important}.home-bottom img{max-height:86px!important}}
+/* Home concept layout */
+.home-detail{background:#fff!important;margin:0!important;padding:0!important;display:block!important}
+.categories{padding:20px 4% 18px!important;background:#fff!important;overflow:hidden!important;display:flex!important;align-items:center!important;justify-content:center!important}
+.category-grid{width:min(1128px,100%)!important;display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:14px 16px!important;align-items:start!important;margin:0 auto!important}
+.category-card.image-card{min-height:0!important;padding:0!important;border:0!important;border-radius:8px!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;transform:none!important}
+.category-card.image-card img{display:block!important;width:100%!important;height:auto!important;border-radius:8px!important;box-shadow:0 8px 22px rgba(44,31,31,.055)!important}
+.category-card.image-card:hover{transform:translateY(-2px)!important}
+.category-card.image-card:hover img{box-shadow:0 14px 30px rgba(181,84,90,.12)!important}
+.home-bottom{display:block!important;width:100%!important;margin:0!important;padding:0!important;background:#fffaf8!important;line-height:0!important;overflow:hidden!important;border-top:1px solid rgba(181,84,90,.06)!important}
+.home-bottom img{display:block!important;width:100%!important;height:auto!important;margin:0!important;padding:0!important}
+@media (min-width:981px){.category-grid .category-card.image-card:nth-child(7){grid-column:2!important}}
+@media (max-width:980px){.categories{padding:18px 5% 16px!important}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;width:min(560px,100%)!important;gap:12px!important}.category-grid .category-card.image-card:nth-child(7){grid-column:auto!important}}
 </style>
 </head>
 <body>
@@ -268,28 +267,24 @@
   </div>
 <div class="page-banner"><picture><source media="(max-width: 980px)" srcset="assets/hero-home-mobile.png"><img src="assets/hero-home.png" alt="MOMENT Party Recipe 첫 화면"></picture></div>
 
-  <main class="home-detail" aria-label="MOMENT Party Recipe 상세 메뉴">
-  <section class="categories" aria-label="이벤트 카테고리">
-    <div class="category-scroll">
-      <div class="category-board">
-        <img src="assets/category-board.png" alt="브라이덜샤워, 프로포즈, 젠더리빌, 웨딩촬영 소품, 백일상, 돌상, 입학식, 졸업식, 생일파티, 크리스마스, 답례품 카테고리">
-        <a class="category-hotspot" style="left:3.1%;top:13.2%;width:14.8%;height:32.2%" href="packages.html?cat=wedding" aria-label="브라이덜샤워"></a>
-        <a class="category-hotspot" style="left:19.2%;top:13.2%;width:14.8%;height:32.2%" href="packages.html?cat=wedding" aria-label="프로포즈"></a>
-        <a class="category-hotspot" style="left:35.2%;top:13.2%;width:14.8%;height:32.2%" href="packages.html?cat=baby" aria-label="젠더리빌"></a>
-        <a class="category-hotspot" style="left:51.1%;top:13.2%;width:14.8%;height:32.2%" href="packages.html?cat=wedding" aria-label="웨딩촬영 소품"></a>
-        <a class="category-hotspot" style="left:67.2%;top:13.2%;width:14.8%;height:32.2%" href="packages.html?cat=baby" aria-label="백일상"></a>
-        <a class="category-hotspot" style="left:83.1%;top:13.2%;width:14.8%;height:32.2%" href="packages.html?cat=baby" aria-label="돌상"></a>
-        <a class="category-hotspot" style="left:5.9%;top:51.8%;width:16.4%;height:32.4%" href="packages.html?cat=graduation" aria-label="입학식"></a>
-        <a class="category-hotspot" style="left:23.7%;top:51.8%;width:16.4%;height:32.4%" href="packages.html?cat=graduation" aria-label="졸업식"></a>
-        <a class="category-hotspot" style="left:41.8%;top:51.8%;width:16.4%;height:32.4%" href="packages.html?cat=birthday" aria-label="생일파티"></a>
-        <a class="category-hotspot" style="left:59.6%;top:51.8%;width:16.4%;height:32.4%" href="packages.html?cat=senior" aria-label="크리스마스"></a>
-        <a class="category-hotspot" style="left:77.6%;top:51.8%;width:16.4%;height:32.4%" href="packages.html?cat=gift" aria-label="답례품"></a>
+  <main class="home-detail" aria-label="MOMENT Party Recipe 상세 메뉴"><section class="categories" aria-label="이벤트 카테고리">
+      <div class="category-grid">
+        <a class="category-card image-card" href="packages.html?cat=wedding"><img src="assets/category-icons/bridal-shower.png" alt="브라이덜샤워"></a>
+        <a class="category-card image-card" href="packages.html?cat=wedding"><img src="assets/category-icons/propose.png" alt="프로포즈"></a>
+        <a class="category-card image-card" href="packages.html?cat=baby"><img src="assets/category-icons/gender-reveal.png" alt="젠더리빌"></a>
+        <a class="category-card image-card" href="packages.html?cat=wedding"><img src="assets/category-icons/wedding-photo-prop.png" alt="웨딩촬영 소품"></a>
+        <a class="category-card image-card" href="packages.html?cat=baby"><img src="assets/category-icons/100days-party.png" alt="백일상"></a>
+        <a class="category-card image-card" href="packages.html?cat=baby"><img src="assets/category-icons/dol-event.png" alt="돌상"></a>
+        <a class="category-card image-card" href="packages.html?cat=graduation"><img src="assets/category-icons/entrance-ceremony.png" alt="입학식"></a>
+        <a class="category-card image-card" href="packages.html?cat=graduation"><img src="assets/category-icons/graduation.png" alt="졸업식"></a>
+        <a class="category-card image-card" href="packages.html?cat=birthday"><img src="assets/category-icons/birthday-party.png" alt="생일파티"></a>
+        <a class="category-card image-card" href="packages.html?cat=senior"><img src="assets/category-icons/christmas.png" alt="크리스마스"></a>
+        <a class="category-card image-card" href="packages.html?cat=gift"><img src="assets/category-icons/thank-you-gift.png" alt="답례품"></a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="home-bottom" aria-label="MOMENT 서비스 특징"><img src="assets/home-bottom.jpg" alt="맞춤 기획, 감성 디자인, 정성 서비스, 기억을 기록하다"></section>
-</main>
+    <section class="home-bottom" aria-label="MOMENT 서비스 특징"><img src="assets/home-bottom.jpg" alt="맞춤 기획, 감성 디자인, 정성 서비스, 기억을 기록하다"></section>
+  </main>
 
   <script>
     const menuToggle = document.getElementById('menuToggle');
@@ -298,5 +293,3 @@
   </script>
 </body>
 </html>
-
-

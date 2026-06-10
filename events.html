@@ -60,6 +60,10 @@ footer{background:var(--rose);color:white;padding:52px 5% 32px}.ft{display:flex;
 .story-image-frame img{display:block!important;width:100%!important;height:auto!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important}
 .story-image-section:last-child{margin-bottom:0!important}
 @media(max-width:760px){.moment-story-main{padding-top:24px!important}.story-image-section{padding:0 4%!important;margin-bottom:22px!important}.story-image-frame img{min-width:760px!important}}
+.story-image-frame{position:relative!important}
+.story-booking-link{position:absolute;left:50%;bottom:7.2%;width:18%;height:8%;min-width:150px;max-width:260px;transform:translateX(-50%);border-radius:999px;z-index:2;font-size:0;color:transparent;background:transparent}
+.story-booking-link:focus-visible{outline:3px solid #b5545a;outline-offset:4px;background:rgba(255,255,255,.18)}
+@media(max-width:760px){.story-booking-link{left:50%;bottom:7.2%;width:170px;height:54px}}
 </style>
 </head>
 <body>
@@ -72,7 +76,7 @@ footer{background:var(--rose);color:white;padding:52px 5% 32px}.ft{display:flex;
     <div class="story-image-frame"><img src="assets/moment-story-2.jpg" alt="Birth Grow Love Legacy와 지역사회의 변화에 주목한 MOMENT 이야기"></div>
   </section>
   <section class="story-image-section" aria-label="일생을 따라가는 이벤트 여정과 MOMENT 약속">
-    <div class="story-image-frame"><img src="assets/moment-story-3.jpg" alt="일생을 따라가는 이벤트 여정, MOMENT Promise, 이벤트 상담하기 안내"></div>
+    <div class="story-image-frame"><img src="assets/moment-story-3.jpg" alt="일생을 따라가는 이벤트 여정, MOMENT Promise, 이벤트 상담하기 안내"><a class="story-booking-link" href="booking.html" aria-label="이벤트 상담하기 예약 페이지로 이동">이벤트 상담하기</a></div>
   </section>
 </main>
 

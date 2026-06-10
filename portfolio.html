@@ -53,31 +53,11 @@ footer{background:var(--rose);color:white;padding:52px 5% 32px}.ft{display:flex;
 .common-footer .footer-bottom{margin:30px 0 0!important;font-size:13px!important;color:rgba(255,255,255,.46)!important}
 @media(max-width:760px){.common-footer{padding:42px 6% 30px!important}.common-footer .footer-desc{white-space:normal!important}.common-footer .footer-top{display:block!important}.common-footer .footer-links{justify-content:flex-start!important;margin-top:28px!important;gap:14px 20px!important}.common-footer .footer-bottom{margin-top:24px!important}}
 
-/* ── 활동 갤러리 필터 ── */
-.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;max-width:1180px;margin:0 auto 36px}
-.section-head h2{font-family:var(--fn-kr);font-size:30px;font-weight:600}
-.gallery-filter{display:flex;gap:8px;flex-wrap:wrap}
-.gf-btn{padding:7px 16px;border-radius:999px;border:1.5px solid var(--rose-light);background:#fff;font-family:var(--fn-sans);font-size:13px;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap}
-.gf-btn:hover{border-color:var(--rose-soft);color:var(--rose)}
-.gf-btn.active{background:var(--rose);border-color:var(--rose);color:#fff}
-
-/* ── 활동 카드 흐름 ── */
-.activity-flow{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.act-card{border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--rose-light);box-shadow:0 10px 28px rgba(181,84,90,.08);transition:transform .25s,box-shadow .25s}
-.act-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(181,84,90,.14)}
-.act-card.hidden{display:none}
-.act-photo{position:relative;min-height:200px;background-size:cover;background-repeat:no-repeat}
-.act-num{position:absolute;bottom:12px;left:14px;width:32px;height:32px;border-radius:50%;background:var(--rose);color:#fff;font-family:var(--fn-en);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:1}
-.act-arrow{position:absolute;right:14px;bottom:14px;font-size:22px;color:var(--rose);z-index:1;text-shadow:0 0 6px rgba(255,255,255,.8)}
-.act-body{padding:20px 22px 18px;display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:start}
-.act-icon{width:38px;height:38px;color:var(--rose);margin-top:2px}
-.act-icon svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.act-title{font-family:var(--fn-kr);font-size:17px;font-weight:600;margin:0 0 6px;color:var(--ink)}
-.act-desc{font-size:13px;color:var(--muted);line-height:1.8;margin:0}
-.act-closing{max-width:1180px;margin:40px auto 0;text-align:center;font-family:var(--fn-kr);font-size:15px;color:var(--rose);letter-spacing:.02em}
-@media(max-width:900px){.activity-flow{grid-template-columns:repeat(2,1fr)}.section-head{flex-direction:column;align-items:flex-start}}
-@media(max-width:560px){.act-card:nth-child(n){display:block!important}.activity-flow{grid-template-columns:1fr}.act-photo{min-height:180px}}
-
+/* Portfolio activity image page */
+.portfolio-activity-page{background:#fffaf8;padding:clamp(28px,3.4vw,64px) clamp(18px,3.2vw,64px) clamp(34px,4vw,72px);overflow:visible}
+.portfolio-activity-wrap{width:100%;max-width:1983px;margin:0 auto;line-height:0;background:#fffaf8}
+.portfolio-activity-img{display:block;width:100%;max-width:100%;height:auto;margin:0 auto;object-fit:contain;object-position:center top}
+@media(max-width:760px){.portfolio-activity-page{padding:24px 14px 34px}.portfolio-activity-wrap{max-width:100%}}
 </style>
 </head>
 <body>
@@ -85,108 +65,10 @@ footer{background:var(--rose);color:white;padding:52px 5% 32px}.ft{display:flex;
 <div class="mobile-nav" id="mobileNav"><a href="events.html">Moment 이야기</a><a href="packages.html?v=showroom">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="booking.html">문의하기</a></div>
 <div class="page-banner"><picture><source media="(max-width: 980px)" srcset="assets/hero-portfolio-mobile.png"><img src="assets/hero-portfolio.png" alt="학생 활동 포트폴리오 배너"></picture></div>
 
-<main>
-<section class="section">
-  <div class="section-head">
-    <h2>활동 갤러리</h2>
-    <div class="gallery-filter" id="galleryFilter" role="tablist" aria-label="활동 필터">
-      <button class="gf-btn active" data-filter="all" role="tab" aria-selected="true">전체</button>
-      <button class="gf-btn" data-filter="plan" role="tab" aria-selected="false">기획</button>
-      <button class="gf-btn" data-filter="make" role="tab" aria-selected="false">제작</button>
-      <button class="gf-btn" data-filter="setup" role="tab" aria-selected="false">현장 세팅</button>
-      <button class="gf-btn" data-filter="present" role="tab" aria-selected="false">발표</button>
-      <button class="gf-btn" data-filter="feedback" role="tab" aria-selected="false">피드백</button>
-    </div>
+<main class="portfolio-activity-page">
+  <div class="portfolio-activity-wrap">
+    <img class="portfolio-activity-img" src="assets/portfolio-activity-exact-replace-photos.png" alt="활동 갤러리: 기획 회의, 소품 제작, 상품 제작, 포장 작업, 현장 세팅, 발표와 피드백 과정">
   </div>
-
-  <div class="activity-flow" id="activityFlow">
-    <article class="act-card" data-cat="plan">
-      <div class="act-photo" style="background-image:url('assets/portfolio-activity.png');background-size:600% 100%;background-position:0% 0%;">
-        <span class="act-num">01</span>
-        <div class="act-arrow">&#8594;</div>
-      </div>
-      <div class="act-body">
-        <div class="act-icon">
-          <svg viewBox="0 0 36 36"><circle cx="12" cy="12" r="4"/><circle cx="24" cy="12" r="4"/><circle cx="18" cy="24" r="4"/><line x1="12" y1="16" x2="18" y2="20"/><line x1="24" y1="16" x2="18" y2="20"/></svg>
-        </div>
-        <h3 class="act-title">기획 회의</h3>
-        <p class="act-desc">트렌드 리서치부터 아이디어 구상, 역할 분담까지 모두 우리가 직접!</p>
-      </div>
-    </article>
-
-    <article class="act-card" data-cat="make">
-      <div class="act-photo" style="background-image:url('assets/portfolio-activity.png');background-size:600% 100%;background-position:20% 0%;">
-        <span class="act-num">02</span>
-        <div class="act-arrow">&#8594;</div>
-      </div>
-      <div class="act-body">
-        <div class="act-icon">
-          <svg viewBox="0 0 36 36"><line x1="10" y1="26" x2="26" y2="10"/><line x1="8" y1="20" x2="16" y2="28"/><circle cx="26" cy="10" r="3"/></svg>
-        </div>
-        <h3 class="act-title">소품 제작</h3>
-        <p class="act-desc">작은 디테일까지 고민하며 우리만의 감성을 담은 소품을 만들어갑니다.</p>
-      </div>
-    </article>
-
-    <article class="act-card" data-cat="make">
-      <div class="act-photo" style="background-image:url('assets/portfolio-activity.png');background-size:600% 100%;background-position:40% 0%;">
-        <span class="act-num">03</span>
-        <div class="act-arrow">&#8594;</div>
-      </div>
-      <div class="act-body">
-        <div class="act-icon">
-          <svg viewBox="0 0 36 36"><rect x="10" y="14" width="16" height="14" rx="2"/><path d="M14 14v-3a4 4 0 0 1 8 0v3"/><line x1="18" y1="20" x2="18" y2="24"/></svg>
-        </div>
-        <h3 class="act-title">상품 제작</h3>
-        <p class="act-desc">드립백, 청첩장, 답례품 등 정성스럽게 제작하여 완성도를 높였습니다.</p>
-      </div>
-    </article>
-
-    <article class="act-card" data-cat="make">
-      <div class="act-photo" style="background-image:url('assets/portfolio-activity.png');background-size:600% 100%;background-position:60% 0%;">
-        <span class="act-num">04</span>
-        <div class="act-arrow">&#8594;</div>
-      </div>
-      <div class="act-body">
-        <div class="act-icon">
-          <svg viewBox="0 0 36 36"><rect x="8" y="8" width="20" height="20" rx="2"/><line x1="8" y1="14" x2="28" y2="14"/><path d="M14 20l3 3 7-7"/></svg>
-        </div>
-        <h3 class="act-title">포장 작업</h3>
-        <p class="act-desc">정성껏 만든 상품을 더 빛나게 해줄 포장까지 우리가 직접!</p>
-      </div>
-    </article>
-
-    <article class="act-card" data-cat="setup">
-      <div class="act-photo" style="background-image:url('assets/portfolio-activity.png');background-size:600% 100%;background-position:80% 0%;">
-        <span class="act-num">05</span>
-        <div class="act-arrow">&#8594;</div>
-      </div>
-      <div class="act-body">
-        <div class="act-icon">
-          <svg viewBox="0 0 36 36"><rect x="8" y="20" width="20" height="8" rx="1"/><rect x="12" y="12" width="4" height="8"/><rect x="20" y="12" width="4" height="8"/><line x1="8" y1="28" x2="8" y2="32"/><line x1="28" y1="28" x2="28" y2="32"/></svg>
-        </div>
-        <h3 class="act-title">현장 세팅</h3>
-        <p class="act-desc">행사 콘셉트에 맞게 공간을 꾸미고 분위기를 완성해갑니다.</p>
-      </div>
-    </article>
-
-    <article class="act-card" data-cat="present feedback">
-      <div class="act-photo" style="background-image:url('assets/portfolio-activity.png');background-size:600% 100%;background-position:100% 0%;">
-        <span class="act-num">06</span>
-        <div class="act-arrow" style="display:none;"></div>
-      </div>
-      <div class="act-body">
-        <div class="act-icon">
-          <svg viewBox="0 0 36 36"><rect x="6" y="8" width="18" height="14" rx="2"/><path d="M6 22l-4 6"/><path d="M28 18v6a2 2 0 0 1-2 2H14"/></svg>
-        </div>
-        <h3 class="act-title">발표 &amp; 피드백</h3>
-        <p class="act-desc">우리가 만든 결과를 공유하고 더 나은 방향을 위해 피드백을 주고받습니다.</p>
-      </div>
-    </article>
-  </div>
-
-  <p class="act-closing">우리의 작은 순간들이, 누군가의 특별한 순간이 되기를&nbsp;♡</p>
-</section>
 </main>
 
 <footer class="common-footer">
@@ -202,29 +84,13 @@ footer{background:var(--rose);color:white;padding:52px 5% 32px}.ft{display:flex;
         <a href="packages.html?v=showroom">서비스</a>
         <a href="portfolio.html">포트폴리오</a>
         <a href="booking.html">예약</a>
-        <a href="#">인스타그램</a>
+        
       </nav>
     </div>
     <p class="footer-bottom">© 2025–2026 Party Recipe. All rights reserved.</p>
   </div>
 </footer>
-<script>const menuToggle=document.getElementById('menuToggle');const mobileNav=document.getElementById('mobileNav');menuToggle?.addEventListener('click',()=>mobileNav.classList.toggle('open'));
-// 갤러리 필터
-const filterBtns=document.querySelectorAll('.gf-btn');
-const actCards=document.querySelectorAll('.act-card');
-filterBtns.forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    filterBtns.forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false');});
-    btn.classList.add('active');btn.setAttribute('aria-selected','true');
-    const f=btn.dataset.filter;
-    actCards.forEach(card=>{
-      if(f==='all'||card.dataset.cat.includes(f)){card.classList.remove('hidden');}
-      else{card.classList.add('hidden');}
-    });
-  });
-});
-
-</script>
+<script>const menuToggle=document.getElementById('menuToggle');const mobileNav=document.getElementById('mobileNav');menuToggle?.addEventListener('click',()=>mobileNav.classList.toggle('open'));</script>
 </body>
 </html>
 

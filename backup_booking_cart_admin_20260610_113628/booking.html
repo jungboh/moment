@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>예약 및 구매 — Party Recipe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fffaf8;--rose:#b5545a;--rose-dark:#99424c;--rose-light:#f4dddd;--rose-pale:#fff1f2;--ink:#2c1f1f;--muted:#7d716d;--line:rgba(181,84,90,.16);--shadow:0 16px 42px rgba(44,31,31,.08)}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,"Noto Sans KR",sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}img{display:block;width:100%}
+.site-header{position:fixed;top:0;left:0!important;right:auto!important;z-index:200;width:100vw!important;height:72px!important;padding:0 3.1vw!important;display:flex!important;align-items:center!important;justify-content:space-between!important;background:rgba(255,255,255,.96)!important;border-bottom:1px solid rgba(44,31,31,.08)!important;box-shadow:0 10px 28px rgba(44,31,31,.04)!important;backdrop-filter:blur(8px);font-family:Arial,"Noto Sans KR",sans-serif!important;transition:none!important}.brand{display:flex!important;flex-direction:column!important;align-items:flex-start!important;line-height:1!important;color:#2c1f1f!important}.brand-main{font-family:Georgia,"Times New Roman",serif!important;font-size:clamp(28px,2.35vw,34px)!important;font-weight:600!important;letter-spacing:.08em!important}.brand-sub{margin-top:7px!important;padding-left:.45em!important;font-family:Georgia,"Times New Roman",serif!important;font-size:10px!important;letter-spacing:.36em!important;text-transform:uppercase!important}.site-header nav{display:flex!important;align-items:center!important;gap:clamp(28px,3.3vw,48px)!important}.site-header nav a{font-size:14px!important;font-weight:400!important;white-space:nowrap!important;line-height:1!important}.nav-cta{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:92px!important;height:40px!important;padding:0 22px!important;color:#fff!important;background:#bf4f5e!important;border-radius:999px!important;box-shadow:0 8px 18px rgba(181,84,90,.18)!important;font-weight:600!important}.menu-toggle{display:none;width:42px;height:42px;border:0;background:transparent;cursor:pointer}.menu-toggle span{display:block;width:24px;height:2px;margin:6px auto;background:#2c1f1f}.mobile-nav{display:none;position:fixed;top:72px;left:0;right:0;z-index:199;padding:20px 6% 26px;background:rgba(255,255,255,.98);border-bottom:1px solid rgba(181,84,90,.14)}.mobile-nav.open{display:grid;gap:16px}
+.page-banner{display:block!important;margin:72px 0 0!important;width:100%!important;overflow:hidden!important;background:#fffaf8!important;border-bottom:1px solid rgba(181,84,90,.10)!important;line-height:0!important}.page-banner picture,.page-banner img{display:block!important;width:100%!important;height:auto!important;margin:0!important;padding:0!important}.page-banner img{object-fit:contain!important;object-position:center center!important}
+.booking-page{background:#fffaf8}.booking-shell{max-width:1480px;margin:0 auto;padding:clamp(34px,4vw,70px) clamp(18px,4vw,72px) clamp(56px,5vw,92px)}.booking-layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);gap:30px;align-items:start}.panel{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow)}.panel-head{padding:26px 28px 18px;border-bottom:1px solid rgba(181,84,90,.10)}.eyebrow{display:block;margin-bottom:8px;color:var(--rose);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.panel-title{font-size:clamp(24px,2.4vw,34px);line-height:1.3}.panel-copy{margin-top:10px;color:var(--muted);font-size:14px;line-height:1.8}.category-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;padding:20px 24px 4px;overflow:visible}.cat-btn{width:100%;min-width:0;height:38px;padding:0 12px;border:1.5px solid var(--rose-light);border-radius:999px;background:#fff;color:#3b3030;font-size:13px;font-weight:700;cursor:pointer}.cat-btn.active{background:var(--rose);border-color:var(--rose);color:#fff}.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:20px 24px 28px}.product-card{display:grid;grid-template-columns:112px minmax(0,1fr);gap:14px;align-items:center;border:1.5px solid rgba(181,84,90,.14);border-radius:8px;background:#fff;padding:12px;text-align:left;cursor:pointer;transition:border-color .18s,box-shadow .18s,transform .18s}.product-card:hover{transform:translateY(-2px);border-color:rgba(181,84,90,.35);box-shadow:0 12px 28px rgba(44,31,31,.08)}.product-card.selected{border-color:var(--rose);box-shadow:0 0 0 3px rgba(181,84,90,.10)}.product-img{aspect-ratio:4/3;border-radius:6px;overflow:hidden;background:#f6eeee}.product-img img{height:100%;object-fit:cover;object-position:center}.product-type{display:inline-flex;margin-bottom:7px;padding:4px 9px;border-radius:999px;background:#fff3f4;color:var(--rose);font-size:11px;font-weight:800}.product-card[data-kind="purchase"] .product-type{background:#fff7e2;color:#8a6a26}.product-name{display:block;font-size:16px;line-height:1.35}.product-desc{display:block;margin-top:6px;color:var(--muted);font-size:12px;line-height:1.55}.product-price{display:block;margin-top:8px;color:var(--rose);font-weight:800;font-size:15px}.form-panel{position:sticky;top:142px;overflow:hidden}.summary{display:grid;grid-template-columns:86px 1fr;gap:14px;align-items:center;margin:22px 24px 0;padding:14px;border:1px solid var(--rose-light);border-radius:8px;background:var(--rose-pale)}.summary-img{aspect-ratio:4/3;border-radius:6px;overflow:hidden;background:#fff}.summary-img img{height:100%;object-fit:cover}.summary-title{font-size:17px;line-height:1.35}.summary-meta{margin-top:5px;color:var(--muted);font-size:12px}.summary-price{margin-top:7px;color:var(--rose);font-size:18px;font-weight:800}.booking-form{padding:22px 24px 26px}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:6px;margin-bottom:13px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:#655956;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1.5px solid var(--rose-light);border-radius:8px;background:#fff;padding:11px 12px;color:var(--ink);font-size:14px;outline:none}.field textarea{min-height:92px;resize:vertical;line-height:1.65}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--rose)}.mode-note{margin:-2px 0 16px;padding:12px 13px;border-radius:8px;background:#fff8f8;color:#6b5d59;font-size:13px;line-height:1.65}.hidden{display:none!important}.total-box{display:flex;justify-content:space-between;gap:14px;align-items:center;margin:8px 0 16px;padding:14px;border-radius:8px;background:#fffaf8;border:1px solid rgba(181,84,90,.12)}.total-box span{color:var(--muted);font-size:13px}.total-box strong{color:var(--rose);font-size:21px}.submit-btn{width:100%;height:50px;border:0;border-radius:999px;background:var(--rose);color:#fff;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 12px 24px rgba(181,84,90,.20)}.submit-btn:hover{background:var(--rose-dark)}.guide-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}.guide{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px}.guide b{display:block;margin-bottom:8px;font-size:14px}.guide p{color:var(--muted);font-size:13px;line-height:1.7}.toast{position:fixed;inset:0;z-index:520;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(44,31,31,.45)}.toast.open{display:flex}.toast-card{width:min(440px,100%);background:#fff;border-radius:10px;padding:34px 28px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.22)}.toast-icon{width:58px;height:58px;margin:0 auto 16px;border-radius:999px;background:#fff0f1;color:var(--rose);display:flex;align-items:center;justify-content:center;font-size:28px}.toast-card h2{font-size:22px;margin-bottom:10px}.toast-card p{color:var(--muted);font-size:14px;line-height:1.8}.toast-card button{margin-top:22px;height:42px;padding:0 26px;border:0;border-radius:999px;background:var(--rose);color:#fff;font-weight:800;cursor:pointer}
+.common-footer{background:#b5545a!important;color:#fff!important;margin:0!important;padding:58px 4.4% 38px!important;font-family:Arial,"Noto Sans KR",sans-serif!important}.common-footer .footer-inner{max-width:1720px;margin:0 auto!important}.common-footer .footer-top{display:flex!important;justify-content:space-between!important;align-items:flex-start!important;gap:32px!important;padding-bottom:34px!important;border-bottom:1px solid rgba(255,255,255,.22)!important}.common-footer .footer-logo{display:flex!important;align-items:center!important;gap:10px!important;margin-bottom:16px!important;font-family:Georgia,"Times New Roman",serif!important;font-size:18px!important;font-weight:700!important;color:#fff!important}.common-footer .footer-desc{margin:0!important;font-size:14px!important;line-height:1.95!important;color:rgba(255,255,255,.78)!important}.common-footer .footer-links{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:26px!important;flex-wrap:wrap!important;padding-top:7px!important}.common-footer .footer-links a{font-size:14px!important;font-weight:600!important;color:rgba(255,255,255,.86)!important}.common-footer .footer-bottom{margin:30px 0 0!important;font-size:13px!important;color:rgba(255,255,255,.46)!important}
+@media(max-width:1120px){.booking-layout{grid-template-columns:1fr}.form-panel{position:static}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-list{grid-template-columns:1fr 1fr}}@media(max-width:760px){.category-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.cat-btn{height:36px;font-size:12px;padding:0 10px}}@media(max-width:980px){.site-header{height:64px!important}.site-header nav{display:none!important}.menu-toggle{display:block}.mobile-nav{top:64px}.page-banner{margin-top:64px!important}}@media(max-width:680px){.booking-shell{padding-inline:14px}.product-grid{grid-template-columns:1fr;padding-inline:16px}.product-card{grid-template-columns:96px 1fr}.panel-head{padding:22px 18px 16px}.category-row{padding-inline:16px}.field-grid{grid-template-columns:1fr}.summary{margin-inline:16px}.booking-form{padding-inline:16px}.guide-list{grid-template-columns:1fr}.common-footer .footer-top{display:block!important}.common-footer .footer-links{justify-content:flex-start!important;margin-top:24px!important}}
+</style>
+</head>
+<body>
+<header id="header" class="site-header"><a class="brand" href="index.html" aria-label="MOMENT Party Recipe"><span class="brand-main">MOMENT</span><span class="brand-sub">Party Recipe</span></a><nav aria-label="주 메뉴"><a href="events.html">Moment 이야기</a><a href="packages.html?v=showroom">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="booking.html" class="nav-cta">문의하기</a></nav><button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기"><span></span><span></span><span></span></button></header>
+<div class="mobile-nav" id="mobileNav"><a href="events.html">Moment 이야기</a><a href="packages.html?v=showroom">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a><a href="booking.html">문의하기</a></div>
+<div class="page-banner"><picture><source media="(max-width: 980px)" srcset="assets/hero-booking-mobile.png"><img src="assets/hero-booking.png" alt="MOMENT 예약 안내 배너"></picture></div>
+<main class="booking-page">
+  <section class="booking-shell">
+    <div class="booking-layout">
+      <section class="panel product-panel" aria-label="상품 선택">
+        <div class="panel-head"><span class="eyebrow">Select Service</span><h1 class="panel-title">원하는 서비스나 상품을 먼저 선택해주세요.</h1><p class="panel-copy">이벤트 패키지는 날짜와 시간을 정해 예약하고, 답례품/청첩장 상품은 수량과 배송 정보를 남겨 구매 신청할 수 있습니다.</p></div>
+        <div class="category-row" id="categoryRow">
+          <button class="cat-btn active" data-filter="all">전체</button><button class="cat-btn" data-filter="event">예약 상품</button><button class="cat-btn" data-filter="purchase">구매 상품</button><button class="cat-btn" data-filter="bridal">브라이덜샤워</button><button class="cat-btn" data-filter="propose">프러포즈</button><button class="cat-btn" data-filter="wedding">웨딩</button><button class="cat-btn" data-filter="baby">베이비</button><button class="cat-btn" data-filter="birthday">생일</button><button class="cat-btn" data-filter="season">시즌</button><button class="cat-btn" data-filter="gift">답례품</button>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+      <aside class="panel form-panel" aria-label="예약 및 구매 신청">
+        <div class="panel-head"><span class="eyebrow">Request</span><h2 class="panel-title">예약·구매 신청</h2><p class="panel-copy">접수 후 담당자가 1~2시간 내 연락드려 세부 일정, 제작 문구, 결제 안내를 도와드립니다.</p></div>
+        <div class="summary" id="summaryBox"><div class="summary-img"><img id="summaryImg" src="assets/service-main/propose.png" alt="선택 상품 이미지"></div><div><strong class="summary-title" id="summaryTitle">프로포즈 이벤트 패키지</strong><p class="summary-meta" id="summaryMeta">이벤트 예약</p><p class="summary-price" id="summaryPrice">29,000원</p></div></div>
+        <form class="booking-form" id="requestForm">
+          <div class="mode-note" id="modeNote">이벤트 예약 상품입니다. 희망 날짜와 시간을 선택해주세요.</div>
+          <div class="field-grid">
+            <div class="field"><label for="customerName">이름</label><input id="customerName" required placeholder="홍길동"></div>
+            <div class="field"><label for="customerPhone">연락처</label><input id="customerPhone" required placeholder="010-0000-0000"></div>
+            <div class="field"><label for="customerEmail">이메일</label><input id="customerEmail" type="email" placeholder="example@email.com"></div>
+            <div class="field"><label for="contactMethod">선호 연락 방식</label><select id="contactMethod"><option>전화</option><option>문자</option><option>카카오톡</option><option>이메일</option></select></div>
+            <div class="field event-field"><label for="eventDate">희망 날짜</label><input id="eventDate" type="date"></div>
+            <div class="field event-field"><label for="eventTime">희망 시간</label><select id="eventTime"><option value="">시간 선택</option><option>10:00</option><option>11:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option></select></div>
+            <div class="field purchase-field hidden"><label for="quantity">수량</label><input id="quantity" type="number" min="1" value="1"></div>
+            <div class="field purchase-field hidden"><label for="delivery">수령 방법</label><select id="delivery"><option>택배 수령</option><option>직접 수령</option><option>상담 후 결정</option></select></div>
+            <div class="field full purchase-field hidden"><label for="address">배송 주소</label><input id="address" placeholder="택배 수령 시 주소를 입력해주세요"></div>
+            <div class="field full"><label for="requestNote">요청 사항</label><textarea id="requestNote" placeholder="예: 행사 장소, 예상 인원, 원하는 분위기, 맞춤 문구, 배송 요청사항 등"></textarea></div>
+          </div>
+          <div class="total-box"><span id="totalLabel">예상 금액</span><strong id="totalPrice">29,000원</strong></div>
+          <button class="submit-btn" id="submitBtn" type="submit">예약 신청하기</button>
+        </form>
+      </aside>
+    </div>
+    <div class="guide-list" aria-label="이용 안내">
+      <div class="guide"><b>예약 상품</b><p>행사 날짜와 시간을 남기면 담당자가 가능 여부와 세팅 범위를 확인해드립니다.</p></div>
+      <div class="guide"><b>구매 상품</b><p>수량과 수령 정보를 남기면 제작 문구, 결제, 배송 일정을 안내드립니다.</p></div>
+      <div class="guide"><b>맞춤 상담</b><p>예산, 장소, 인원에 따라 구성 변경이 가능하니 요청 사항에 편하게 남겨주세요.</p></div>
+    </div>
+  </section>
+</main>
+<div class="toast" id="toast"><div class="toast-card"><div class="toast-icon" id="toastIcon">✓</div><h2 id="toastTitle">접수 완료</h2><p id="toastText"></p><button id="toastClose" type="button">확인</button></div></div>
+<footer class="common-footer"><div class="footer-inner"><div class="footer-top"><div class="footer-brand"><div class="footer-logo"><span class="heart">♡</span><span>Party Recipe</span></div><p class="footer-desc">탄생부터 은퇴까지, 일생의 모든 특별한 순간을 함께합니다.</p></div><nav class="footer-links" aria-label="하단 메뉴"><a href="index.html">홈</a><a href="events.html">Moment 이야기</a><a href="packages.html?v=showroom">서비스</a><a href="portfolio.html">포트폴리오</a><a href="booking.html">예약</a></nav></div><p class="footer-bottom">© 2025–2026 Party Recipe. All rights reserved.</p></div></footer>
+<script>
+const PRODUCTS=[
+{slug:'propose',name:'프로포즈 이벤트 패키지',price:29000,priceText:'29,000원',kind:'event',cat:'propose wedding',img:'propose.png',desc:'고백의 순간을 위한 감성 공간 연출'},
+{slug:'drip-invitation',name:'드립백 청첩장',price:10000,priceText:'10,000원',unit:'20개입',kind:'purchase',cat:'wedding purchase gift',img:'drip-invitation.png',desc:'하객에게 전하는 웨딩 기프트'},
+{slug:'wedding-photo',name:'웨딩촬영 패키지',price:29000,priceText:'29,000원',kind:'event',cat:'wedding',img:'wedding-photo.png',desc:'플라워 아치, 소품 7종, 케이크 토퍼 포함'},
+{slug:'bridal-shower',name:'브라이덜샤워 패키지',price:29000,priceText:'29,000원',kind:'event',cat:'bridal wedding',img:'bridal-shower.png',desc:'화사한 브라이덜 파티 공간 구성'},
+{slug:'wedding-gift',name:'결혼식 답례품',price:20000,priceText:'20,000원',unit:'10개 세트',kind:'purchase',cat:'wedding purchase gift',img:'wedding-gift.png',desc:'감사한 마음을 담은 답례품 세트'},
+{slug:'gender-reveal',name:'젠더리빌 파티 패키지',price:19000,priceText:'19,000원',kind:'event',cat:'baby',img:'gender-reveal.png',desc:'아기의 소식을 전하는 파티 구성'},
+{slug:'baekil',name:'백일상 이벤트 패키지',price:29000,priceText:'29,000원',kind:'event',cat:'baby',img:'baekil.png',desc:'따뜻한 백일 기념 테이블'},
+{slug:'dol',name:'돌상 이벤트 패키지',price:29000,priceText:'29,000원',kind:'event',cat:'baby',img:'dol.png',desc:'첫 생일을 위한 돌상 구성'},
+{slug:'baby-gift',name:'돌/백일 답례품',price:20000,priceText:'20,000원',unit:'10개 세트',kind:'purchase',cat:'baby purchase gift',img:'baby-gift.png',desc:'백일과 돌잔치 답례품 세트'},
+{slug:'graduation',name:'졸업식 패키지',price:19000,priceText:'19,000원',kind:'event',cat:'season school',img:'graduation.png',desc:'졸업을 기념하는 시즌 구성'},
+{slug:'entrance',name:'입학식 패키지',price:19000,priceText:'19,000원',kind:'event',cat:'season school',img:'entrance.png',desc:'새로운 시작을 응원하는 구성'},
+{slug:'senior-party',name:'환갑/칠순잔치 패키지',price:19000,priceText:'19,000원',kind:'event',cat:'birthday',img:'senior-party.png',desc:'가족 축하 자리를 위한 생일 패키지'},
+{slug:'christmas',name:'크리스마스 패키지',price:9900,priceText:'9,900원',kind:'event',cat:'season holiday',img:'christmas.png',desc:'연말 분위기를 완성하는 시즌 패키지'}
+];
+const fmt=n=>n.toLocaleString('ko-KR')+'원';
+let selected=PRODUCTS[0];
+const grid=document.getElementById('productGrid');
+function card(p){return `<button class="product-card" data-slug="${p.slug}" data-kind="${p.kind}" data-cat="${p.cat}"><span class="product-img"><img src="assets/service-main/${p.img}" alt="${p.name}"></span><span><span class="product-type">${p.kind==='event'?'예약':'구매'}</span><strong class="product-name">${p.name}</strong><span class="product-desc">${p.desc}</span><span class="product-price">${p.priceText}${p.unit?'<small> '+p.unit+'</small>':''}</span></span></button>`}
+function render(filter='all'){grid.innerHTML=PRODUCTS.filter(p=>filter==='all'||p.kind===filter||p.cat.includes(filter)).map(card).join('');grid.querySelectorAll('.product-card').forEach(btn=>btn.addEventListener('click',()=>selectProduct(btn.dataset.slug)));markSelected()}
+function markSelected(){document.querySelectorAll('.product-card').forEach(c=>c.classList.toggle('selected',c.dataset.slug===selected.slug))}
+function selectProduct(slug){selected=PRODUCTS.find(p=>p.slug===slug)||PRODUCTS[0];document.getElementById('summaryImg').src='assets/service-main/'+selected.img;document.getElementById('summaryTitle').textContent=selected.name;document.getElementById('summaryMeta').textContent=selected.kind==='event'?'이벤트 예약':'상품 구매'+(selected.unit?' · '+selected.unit:'');document.getElementById('summaryPrice').textContent=selected.priceText;document.getElementById('modeNote').textContent=selected.kind==='event'?'이벤트 예약 상품입니다. 희망 날짜와 시간을 선택해주세요.':'구매 상품입니다. 수량과 수령 방법을 남겨주세요.';document.querySelectorAll('.event-field').forEach(el=>el.classList.toggle('hidden',selected.kind!=='event'));document.querySelectorAll('.purchase-field').forEach(el=>el.classList.toggle('hidden',selected.kind!=='purchase'));document.getElementById('submitBtn').textContent=selected.kind==='event'?'예약 신청하기':'구매 신청하기';updateTotal();markSelected()}
+function updateTotal(){const qty=Math.max(1,parseInt(document.getElementById('quantity').value||'1',10));const total=selected.kind==='purchase'?selected.price*qty:selected.price;document.getElementById('totalLabel').textContent=selected.kind==='purchase'?'예상 금액 · 수량 '+qty:'예상 금액';document.getElementById('totalPrice').textContent=fmt(total)}
+document.getElementById('quantity').addEventListener('input',updateTotal);
+document.querySelectorAll('.cat-btn').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render(btn.dataset.filter)}));
+document.getElementById('requestForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const name = document.getElementById('customerName').value.trim();
+  const phone = document.getElementById('customerPhone').value.trim();
+  const date = document.getElementById('eventDate').value;
+  const time = document.getElementById('eventTime').value;
+  if (!name || !phone) return;
+  if (selected.kind === 'event' && (!date || !time)) {
+    alert('이벤트 예약은 희망 날짜와 시간을 선택해주세요.');
+    return;
+  }
+  const qty = Math.max(1, parseInt(document.getElementById('quantity').value || '1', 10));
+  const total = selected.kind === 'purchase' ? selected.price * qty : selected.price;
+  const record = {
+    id: 'PR-' + Date.now().toString().slice(-6),
+    kind: selected.kind === 'event' ? '예약' : '구매',
+    product: selected.name,
+    total: fmt(total),
+    name,
+    phone,
+    date: selected.kind === 'event' ? date : '',
+    time: selected.kind === 'event' ? time : '',
+    quantity: selected.kind === 'purchase' ? qty : '',
+    createdAt: new Date().toLocaleString('ko-KR')
+  };
+  const saved = JSON.parse(localStorage.getItem('partyRecipeRequests') || '[]');
+  saved.unshift(record);
+  localStorage.setItem('partyRecipeRequests', JSON.stringify(saved.slice(0, 50)));
+  document.getElementById('toastIcon').textContent = selected.kind === 'event' ? '예약' : '구매';
+  document.getElementById('toastTitle').textContent = (selected.kind === 'event' ? '예약' : '구매') + ' 신청이 접수되었습니다';
+  document.getElementById('toastText').innerHTML =
+    '접수번호 <strong>' + record.id + '</strong><br>' +
+    selected.name + '<br>' +
+    (selected.kind === 'event' ? date + ' ' + time + '<br>' : '수량 ' + qty + '개<br>') +
+    fmt(total) + '<br><br>담당자가 1~2시간 내 연락드립니다.';
+  document.getElementById('toast').classList.add('open');
+  e.target.reset();
+  document.getElementById('quantity').value = '1';
+  updateTotal();
+});
+document.getElementById('toastClose').addEventListener('click',()=>document.getElementById('toast').classList.remove('open'));document.getElementById('toast').addEventListener('click',e=>{if(e.target.id==='toast')e.currentTarget.classList.remove('open')});
+const menuToggle=document.getElementById('menuToggle');const mobileNav=document.getElementById('mobileNav');menuToggle?.addEventListener('click',()=>mobileNav.classList.toggle('open'));mobileNav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mobileNav.classList.remove('open')));
+const params=new URLSearchParams(location.search);const pkg=params.get('pkg');if(pkg){const found=PRODUCTS.find(p=>p.slug===pkg)||PRODUCTS.find(p=>p.cat.includes(pkg));if(found)selected=found}render();selectProduct(selected.slug);
+</script>
+</body>
+</html>

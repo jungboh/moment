@@ -37,7 +37,7 @@ var CR_ACCOUNTS = [
   '미지급비용'
 ];
 
-var GEMINI_MODEL = 'gemini-2.5-flash';
+var GEMINI_MODEL = 'gemini-3.5-flash-lite';
 
 // 계정과목 이름만 제시하면 유사 계정 간 판단이 흔들리므로 수업용 판단 기준도 함께 제공합니다.
 var ACCOUNTING_RULES = [
@@ -395,8 +395,7 @@ function callGemini(promptText, imageBase64, imageMediaType, schema) {
     ],
     generationConfig: {
       responseMimeType: 'application/json',
-      responseSchema: schema,
-      temperature: 0.2
+      responseSchema: schema
     }
   };
 

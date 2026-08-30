@@ -22,27 +22,25 @@ button { -webkit-tap-highlight-color: transparent; }
 .page-shell { min-height: 100vh; padding: 22px; display: grid; place-items: center; }
 .booking-page { width: min(1580px, 100%); min-height: calc(100vh - 44px); background: rgba(255,255,255,.88); border: 1px solid #d9dee7; border-radius: 22px; padding: clamp(28px, 3.8vw, 58px) clamp(20px, 2.5vw, 38px) 28px; box-shadow: 0 16px 50px rgba(26, 48, 87, .07); }
 
-.hero { text-align: center; max-width: 1040px; margin: 0 auto 28px; }
+.hero { text-align: center; max-width: 1040px; margin: 0 auto 20px; }
 .eyebrow { margin: 0 0 8px; color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .16em; }
-.hero h1 { margin: 0; color: #091735; font-size: clamp(35px, 4vw, 64px); line-height: 1.1; letter-spacing: -.04em; }
-.intro { margin: 16px auto 22px; color: #53617b; font-size: clamp(15px, 1.25vw, 20px); line-height: 1.65; }
-.period-pill { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border: 1px solid #cfe0ff; border-radius: 999px; background: #f2f7ff; color: #174aa5; font-size: clamp(15px, 1.25vw, 20px); font-weight: 700; }
+.hero h1 { margin: 0; color: #091735; font-size: clamp(34px, 3.5vw, 56px); line-height: 1.1; letter-spacing: -.04em; }
+.intro { margin: 12px auto 16px; color: #53617b; font-size: clamp(14px, 1.05vw, 17px); line-height: 1.6; }
+.period-pill { display: inline-flex; align-items: center; gap: 9px; padding: 10px 18px; border: 1px solid #cfe0ff; border-radius: 999px; background: #f2f7ff; color: #174aa5; font-size: clamp(14px, 1.05vw, 17px); font-weight: 700; }
 .period-pill svg { width: 24px; height: 24px; }
 
-.prep-panel { margin: 0 0 24px; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: stretch; gap: 24px; padding: 18px 22px; border: 1px solid #cfe0ff; border-radius: 16px; background: linear-gradient(135deg, #f7faff, #eef5ff); }
-.prep-heading { display: flex; align-items: center; gap: 12px; padding-right: 24px; border-right: 1px solid #d6e4f8; white-space: nowrap; }
-.prep-number { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--blue); color: white; font-size: 19px; font-weight: 900; }
-.prep-heading p { margin: 0 0 3px; color: var(--blue); font-size: 11px; font-weight: 900; letter-spacing: .08em; }
-.prep-heading h2 { margin: 0; color: var(--ink); font-size: 19px; }
-.prep-list { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; list-style: none; counter-reset: prep;
-}
-.prep-list li { counter-increment: prep; display: grid; grid-template-columns: auto 1fr; align-content: center; column-gap: 10px; }
-.prep-list li::before { content: counter(prep); grid-row: 1 / 3; width: 25px; height: 25px; display: grid; place-items: center; border-radius: 7px; background: white; border: 1px solid #c8dcfa; color: var(--blue); font-size: 13px; font-weight: 900; }
-.prep-list strong { color: #193158; font-size: 14px; }
-.prep-list span { margin-top: 3px; color: #5d6b83; font-size: 12px; line-height: 1.45; }
-.final-guidance { margin: -8px 0 24px; display: flex; align-items: center; justify-content: center; gap: 9px; padding: 13px 18px; border: 1px solid #f2d99a; border-radius: 13px; background: #fff9e9; color: #5c4614; font-size: 14px; line-height: 1.5; }
-.final-guidance svg { width: 19px; height: 19px; flex: 0 0 auto; color: #c88700; }
-.final-guidance strong { color: #8c5e00; }
+.prep-panel { margin: 0 0 18px; padding: 15px 18px 17px; border: 1px solid #dce5f2; border-radius: 16px; background: #fff; box-shadow: 0 5px 16px rgba(31, 50, 82, .05); }
+.prep-panel > h2 { margin: 0 0 11px; color: #263650; font-size: 14px; }
+.prep-list { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); list-style: none; }
+.prep-list li { min-width: 0; display: grid; grid-template-columns: 25px 42px minmax(0, 1fr); align-items: center; gap: 10px; padding: 0 20px; }
+.prep-list li:first-child { padding-left: 36px; }
+.prep-list li + li { border-left: 1px solid #dfe6f0; }
+.prep-index { width: 21px; height: 21px; display: grid; place-items: center; border-radius: 50%; background: var(--blue); color: white; font-size: 11px; font-weight: 900; }
+.prep-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 10px; background: #f2f7ff; color: var(--blue); }
+.prep-icon svg { width: 23px; height: 23px; stroke-width: 1.8; }
+.prep-copy { min-width: 0; display: grid; gap: 3px; }
+.prep-copy strong { color: #263650; font-size: 13px; }
+.prep-copy small { color: #68758a; font-size: 10px; line-height: 1.5; }
 
 .days-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: start; }
 .day-card { background: var(--card); border: 1px solid var(--line); border-radius: 17px; padding: 18px 16px; box-shadow: 0 8px 20px rgba(31, 50, 82, .06); }
@@ -108,8 +106,8 @@ button { -webkit-tap-highlight-color: transparent; }
   .days-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .legend { grid-template-columns: 1fr 1fr; }
   .legend-help { grid-column: 1 / -1; justify-self: stretch; justify-content: center; padding: 16px 0 0; border-left: 0; border-top: 1px solid #dfe4ec; }
-  .prep-panel { grid-template-columns: 1fr; gap: 15px; }
-  .prep-heading { padding: 0 0 14px; border-right: 0; border-bottom: 1px solid #d6e4f8; }
+  .prep-list li { padding: 0 13px; }
+  .prep-list li:first-child { padding-left: 13px; }
 }
 
 @media (max-width: 680px) {
@@ -121,9 +119,10 @@ button { -webkit-tap-highlight-color: transparent; }
   .intro { margin-top: 14px; font-size: 14px; }
   .period-pill { padding: 11px 16px; font-size: 14px; }
   .period-pill svg { width: 20px; }
-  .prep-panel { padding: 17px 15px; }
+  .prep-panel { padding: 15px; }
   .prep-list { grid-template-columns: 1fr; gap: 15px; }
-  .final-guidance { align-items: flex-start; justify-content: flex-start; }
+  .prep-list li, .prep-list li:first-child { padding: 0; }
+  .prep-list li + li { padding-top: 15px; border-top: 1px solid #dfe6f0; border-left: 0; }
   .days-grid { grid-template-columns: 1fr; gap: 14px; }
   .day-card { padding: 16px 12px; border-radius: 15px; }
   .weekday, .day-header h2 { font-size: 17px; }

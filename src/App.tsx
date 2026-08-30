@@ -175,7 +175,7 @@ function App() {
         <footer className="legend">
           <div><span className="legend-dot blue" /><strong>예약 가능</strong><span>아직 예약할 수 있는 자리입니다.</span></div>
           <div><span className="legend-dot gray" /><strong>예약 완료</strong><span>이미 예약이 완료된 자리입니다.</span></div>
-          <div className="legend-help"><Info aria-hidden="true" /><span>예약 변경·취소는 상담실에 문의해 주세요.</span></div>
+          <div className="legend-help"><Info aria-hidden="true" /><span>예약 변경·취소는 정보람선생님에게 문의해주세요.</span></div>
         </footer>
       </section>
 

@@ -135,6 +135,12 @@ function App() {
           </ol>
         </section>
 
+        <aside className="final-guidance" aria-label="상담 안내">
+          <Info aria-hidden="true" />
+          <strong>안내</strong>
+          <span>최종 상담이며, 학부모 확인서가 배부됩니다.</span>
+        </aside>
+
         {loadError && <div className="notice error-notice" role="alert">{loadError}<button onClick={() => void loadReservations()}>다시 시도</button></div>}
         {success && <div className="notice success-notice" role="status"><CheckCircle2 aria-hidden="true" />{success}</div>}
 

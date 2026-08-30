@@ -110,10 +110,30 @@ function App() {
       <section className="booking-page" aria-labelledby="page-title">
         <header className="hero">
           <p className="eyebrow">COUNSELING RESERVATION</p>
-          <h1 id="page-title">3금융 수시 2차 상담예약</h1>
+          <h1 id="page-title">3금융 수시 3차 상담예약</h1>
           <p className="intro">원하는 날짜와 차시의 예약 버튼을 눌러 신청하세요. 예약이 완료된 자리에는 예약자명이 표시됩니다.</p>
           <div className="period-pill"><CalendarDays aria-hidden="true" /> 예약 기간: 9월 2일(수) ~ 9월 5일(토)</div>
         </header>
+
+        <section className="prep-panel" aria-labelledby="prep-title">
+          <div className="prep-heading">
+            <span className="prep-number">✓</span>
+            <div>
+              <p>상담 전 준비</p>
+              <h2 id="prep-title">상담 전 해야 할 일</h2>
+            </div>
+          </div>
+          <ol className="prep-list">
+            <li>
+              <strong>모집요강 확인</strong>
+              <span>접수 일정, 합격자 발표 일정(추가합격 일정 포함), 제출 서류, 지원 자격 등을 확인하세요.</span>
+            </li>
+            <li>
+              <strong>입결 확인</strong>
+              <span>최초합격, 추가합격, 추가합격 인원 등 확인 가능한 입시 결과 자료를 모두 준비하세요.</span>
+            </li>
+          </ol>
+        </section>
 
         {loadError && <div className="notice error-notice" role="alert">{loadError}<button onClick={() => void loadReservations()}>다시 시도</button></div>}
         {success && <div className="notice success-notice" role="status"><CheckCircle2 aria-hidden="true" />{success}</div>}
